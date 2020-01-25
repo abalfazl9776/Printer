@@ -1,0 +1,10 @@
+C:\Users\avhb2\source\repos\MyApi\Common\bin\Debug\netcoreapp3.0\Common.deps.json
+C:\Users\avhb2\source\repos\MyApi\Common\bin\Debug\netcoreapp3.0\Common.runtimeconfig.json
+C:\Users\avhb2\source\repos\MyApi\Common\bin\Debug\netcoreapp3.0\Common.runtimeconfig.dev.json
+C:\Users\avhb2\source\repos\MyApi\Common\bin\Debug\netcoreapp3.0\Common.dll
+C:\Users\avhb2\source\repos\MyApi\Common\bin\Debug\netcoreapp3.0\Common.pdb
+C:\Users\avhb2\source\repos\MyApi\Common\obj\Debug\netcoreapp3.0\Common.csprojAssemblyReference.cache
+C:\Users\avhb2\source\repos\MyApi\Common\obj\Debug\netcoreapp3.0\Common.AssemblyInfoInputs.cache
+C:\Users\avhb2\source\repos\MyApi\Common\obj\Debug\netcoreapp3.0\Common.AssemblyInfo.cs
+C:\Users\avhb2\source\repos\MyApi\Common\obj\Debug\netcoreapp3.0\Common.dll
+C:\Users\avhb2\source\repos\MyApi\Common\obj\Debug\netcoreapp3.0\Common.pdb
