@@ -8,7 +8,7 @@ namespace MyApi.Models
 {
     public class TokenRequest
     {
-        [Required]
+        //[Required]
         public string grant_type { get; set; }
         [Required]
         public string username { get; set; }

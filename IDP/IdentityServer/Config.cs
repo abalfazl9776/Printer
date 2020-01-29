@@ -23,8 +23,9 @@ namespace IdentityServer
             {
                 new ApiResource("resourceApi", "My API")
             };
-
+        
         private static string spaClientUrl = "http://localhost:4200";
+        private static string swaggerClientUrl = "http://localhost:44340";
 
         public static IEnumerable<Client> Clients =>
             new List<Client>
@@ -68,17 +69,29 @@ namespace IdentityServer
                         IdentityServerConstants.StandardScopes.Profile,
                         "resourceApi"
                     }
-                }/*,
+                },
                 // machine to machine client
-                //new Client
-                //{
-                //    ClientId = "client",
-                //    ClientSecrets = { new Secret("secret".Sha256()) },
+                new Client
+                {
+                    ClientId = "swagger",
+                    ClientName = "Swagger API Documentation",
+                    ClientSecrets = { new Secret("swagger".Sha256()) },
 
-                //    AllowedGrantTypes = GrantTypes.ClientCredentials,
-                //    // scopes that client has access to
-                //    AllowedScopes = { "api1" }
-                //},
+                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    AllowAccessTokensViaBrowser = true,
+                    RedirectUris = new List<string>
+                    {
+                        $"{swaggerClientUrl}/swagger",
+                    },
+                    RequireClientSecret = false,
+                    // scopes that client has access to
+                    AllowedScopes = new List<string>
+                    {
+                        IdentityServerConstants.StandardScopes.OpenId,
+                        IdentityServerConstants.StandardScopes.Profile,
+                        "resourceApi"
+                    }
+                },/*
                 //// interactive ASP.NET Core MVC client
                 //new Client
                 //{

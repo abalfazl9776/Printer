@@ -20,6 +20,7 @@ using WebFramework.Filters;
 namespace MyApi.Controllers.v1
 {
     [ApiVersion("1")]
+    //[Authorize]
     public class UserController : BaseController
     {
         private readonly IUserRepository _userRepository;
@@ -51,6 +52,7 @@ namespace MyApi.Controllers.v1
         }
 
         [HttpGet("{id:int}")]
+        [Authorize]
         public async Task<ApiResult<UserSelectDto>> Get(int id, CancellationToken cancellationToken)
         {
             var user = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>()
@@ -64,11 +66,10 @@ namespace MyApi.Controllers.v1
 
         [HttpPost("[action]")]
         [AllowAnonymous]
-        [AllowAnonymousCustomFilter]
         public virtual async Task<ActionResult> Token([FromForm]TokenRequest tokenRequest, CancellationToken cancellationToken)
         {
-            if (!tokenRequest.grant_type.Equals("password", StringComparison.OrdinalIgnoreCase))
-                throw new Exception("OAuth flow is not password.");
+            //if (!tokenRequest.grant_type.Equals("password", StringComparison.OrdinalIgnoreCase))
+            //    throw new Exception("OAuth flow is not password.");
 
             var user = await _userManager.FindByNameAsync(tokenRequest.username);
             if (user == null)
@@ -84,7 +85,6 @@ namespace MyApi.Controllers.v1
 
         [HttpPost]
         [AllowAnonymous]
-        [AllowAnonymousCustomFilter]
         public async Task<ApiResult<UserSelectDto>> Create(UserDto userDto, CancellationToken cancellationToken)
         {
             _logger.LogDebug("متد Create فراخوانی شد");
@@ -99,19 +99,21 @@ namespace MyApi.Controllers.v1
             //};
             //await _userManager.CreateAsync(user, userDto.Password);
 
-            ////var result2 = await _roleManager.CreateAsync(new Role
-            ////{
-            ////    Name = "Writer",
-            ////    Description = "writer role"
-            ////});
-
-            ////var result3 = await _userManager.AddToRoleAsync(user, "Writer");
+            //var result2 = await _roleManager.CreateAsync(new Role
+            //{
+            //    Name = "Admin",
+            //    Description = "writer role"
+            //});
 
             //return Ok(userDto);
 
             var user = userDto.ToEntity();
 
             await _userManager.CreateAsync(user, userDto.Password);
+
+            //user = await _userManager.FindByNameAsync(user.UserName);
+
+            //var result3 = await _userManager.AddToRoleAsync(user, "Admin");
 
             var resultDto = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>().SingleOrDefaultAsync(p => p.Id.Equals(user.Id), cancellationToken);
 

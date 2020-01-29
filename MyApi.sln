@@ -19,9 +19,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IDP", "IDP", "{5F3F397B-3AB
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{ED696C4E-5A22-4FCA-BBCF-24CD03E5109F}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorizationServerTest", "IDP\AuthorizationServerTest\AuthorizationServerTest.csproj", "{A2408DBF-6911-4AB5-8000-8EB13C27F634}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorizationServer", "IDP\AuthorizationServer\AuthorizationServer.csproj", "{A2408DBF-6911-4AB5-8000-8EB13C27F634}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdentityServer", "IDP\IdentityServer\IdentityServer.csproj", "{68B9620B-E280-48BE-9BE1-A43C7CFF997A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "IDP\IdentityServer\IdentityServer.csproj", "{68B9620B-E280-48BE-9BE1-A43C7CFF997A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

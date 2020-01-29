@@ -8,7 +8,7 @@ using Entities.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Newtonsoft.Json.Converters;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion.Internal;
 
 namespace Entities.User
 {
@@ -39,8 +39,8 @@ namespace Entities.User
             builder.Property(p => p.UserName).IsRequired().HasMaxLength(100);
         }
     }
-    
-    [JsonConverter(typeof(StringEnumConverter))]
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum GenderType
     {
         [EnumMember(Value = "FEMALE")]

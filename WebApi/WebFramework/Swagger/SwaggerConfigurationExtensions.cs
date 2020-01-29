@@ -21,22 +21,62 @@ namespace WebFramework.Swagger
         {
             Assert.NotNull(services, nameof(services));
 
+            //More info : https://github.com/mattfrear/Swashbuckle.AspNetCore.Filters
+
+            #region AddSwaggerExamples
+            /*
             //Add services to use Example Filters in swagger
-            //services.AddSwaggerExamples();
+            //If you want to use the Request and Response example filters (and have called options.ExampleFilters() above), then you MUST also call
+            //This method to register all ExamplesProvider classes form the assembly
+            //services.AddSwaggerExamplesFromAssemblyOf<PersonRequestExample>();
+
+            //We call this method for by reflection with the Startup type of entry assmebly (MyApi assembly)
+            var mainAssembly = Assembly.GetEntryAssembly(); // => MyApi project assembly
+            var mainType = mainAssembly.GetExportedTypes()[0];
+
+            var methodName = nameof(Swashbuckle.AspNetCore.Filters.ServiceCollectionExtensions.AddSwaggerExamplesFromAssemblyOf);
+            MethodInfo method = typeof(Swashbuckle.AspNetCore.Filters.ServiceCollectionExtensions).GetMethod(methodName);
+            MethodInfo generic = method.MakeGenericMethod(mainType);
+            generic.Invoke(null, new[] { services });
+            */
+            #endregion
+
             //Add services and configuration to use swagger
             services.AddSwaggerGen(options =>
             {
                 var xmlDocPath = Path.Combine(AppContext.BaseDirectory, "MyApi.xml");
                 //show controller XML comments like summary
                 options.IncludeXmlComments(xmlDocPath, true);
+                
+                options.ResolveConflictingActions (apiDescriptions => apiDescriptions.First ());
 
                 options.EnableAnnotations();
-                //options.DescribeAllEnumsAsStrings();
                 //options.DescribeAllParametersInCamelCase();
                 //options.DescribeStringEnumsInCamelCase()
                 //options.UseReferencedDefinitionsForEnums()
                 //options.IgnoreObsoleteActions();
                 //options.IgnoreObsoleteProperties();
+
+                #region DescribeAllEnumsAsStrings
+                //This method was Deprecated. 
+                //options.DescribeAllEnumsAsStrings();
+
+                //You can specify an enum to convert to/from string, uisng :
+                //[EnumDataType(typeof(GenderType))]
+                //[JsonConverter(typeof(JsonStringEnumConverter))]
+                //or
+                //[JsonConverter(typeof(StringEnumConverter))]
+                //public virtual MyEnums MyEnum { get; set; }
+                //Or can apply the StringEnumConverter to all enums globaly, using :
+                //SerializerSettings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
+                //OR
+                //JsonConvert.DefaultSettings = () =>
+                //{
+                //    var settings = new JsonSerializerSettings();
+                //    settings.Converters.Add(new StringEnumConverter { CamelCaseText = true });
+                //    return settings;
+                //};
+                #endregion
 
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
@@ -61,17 +101,19 @@ namespace WebFramework.Swagger
                 #region Filters
                 ////Enable to use [SwaggerRequestExample] & [SwaggerResponseExample]
                 //options.ExampleFilters();
-
-                ////Adds an Upload button to endpoints which have [AddSwaggerFileUploadButton]
+                
+                //It doesn't work anymore in recent versions because of replacing Swashbuckle.AspNetCore.Examples with Swashbuckle.AspNetCore.Filters
+                //Adds an Upload button to endpoints which have [AddSwaggerFileUploadButton]
                 //options.OperationFilter<AddFileParamTypesOperationFilter>();
 
-                ////Set summary of action if not already set
+                //Set summary of action if not already set
                 options.OperationFilter<ApplySummariesOperationFilter>();
                 #endregion
 
                 #region Add Jwt Authentication
                 //Add Lockout icon on top of swagger ui page to authenticate
-                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                #region oldWay
+                /*options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
                 {
                     Type = SecuritySchemeType.OAuth2,
                     Scheme = "Bearer",
@@ -91,12 +133,36 @@ namespace WebFramework.Swagger
                             TokenUrl = new Uri("https://localhost:11595/api/v1/users/Token")
                         }
                     }
+                });*/
+                #endregion
+                options.AddSecurityDefinition("OAuth2", new OpenApiSecurityScheme
+                {
+                    //Scheme = "Bearer",
+                    //In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        Password = new OpenApiOAuthFlow
+                        {
+                            TokenUrl = new Uri("https://localhost:44340/api/v1/user/Token"),
+                            //AuthorizationUrl = new Uri("https://localhost:44340/api/v1/users/Token"),
+                            //Scopes = new Dictionary<string, string>
+                            //{
+                            //    { "readAccess", "Access read operations" },
+                            //    { "writeAccess", "Access write operations" }
+                            //}
+                        }
+                    }
                 });
+                //options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
+                //{
+                //    {"Bearer", new string[] { }}
+                //});
                 #endregion
 
                 #region Add UnAuthorized to Response
                 ////Add 401 response and security requirements (Lock icon) to actions that need authorization
-                options.OperationFilter<UnauthorizedResponsesOperationFilter>(true, new OpenApiSecurityScheme { Scheme = "Bearer" });
+                options.OperationFilter<UnauthorizedResponsesOperationFilter>(true, "OAuth2");
                 #endregion
 
                 #region Versioning
@@ -127,6 +193,8 @@ namespace WebFramework.Swagger
         public static void UseSwaggerAndUI(this IApplicationBuilder app)
         {
             Assert.NotNull(app, nameof(app));
+
+            //More info : https://github.com/domaindrivendev/Swashbuckle.AspNetCore
 
             //Swagger middleware for generate "Open API Documentation" in swagger.json
             app.UseSwagger(options =>
@@ -163,7 +231,37 @@ namespace WebFramework.Swagger
 
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
                 options.SwaggerEndpoint("/swagger/v2/swagger.json", "V2 Docs");
+
+                options.OAuthClientId("swagger");
+                options.OAuthAppName("Swagger API Documentation");
             });
+            
+            //ReDoc UI middleware. ReDoc UI is an alternative to swagger-ui
+            /*app.UseReDoc(options =>
+            {
+                options.SpecUrl("/swagger/v1/swagger.json");
+                //options.SpecUrl("/swagger/v2/swagger.json");
+
+                #region Customizing
+                //By default, the ReDoc UI will be exposed at "/api-docs"
+                //options.RoutePrefix = "docs";
+                //options.DocumentTitle = "My API Docs";
+
+                options.EnableUntrustedSpec();
+                options.ScrollYOffset(10);
+                options.HideHostname();
+                options.HideDownloadButton();
+                options.ExpandResponses("200,201");
+                options.RequiredPropsFirst();
+                options.NoAutoAuth();
+                options.PathInMiddlePanel();
+                options.HideLoading();
+                options.NativeScrollbars();
+                options.DisableSearch();
+                options.OnlyRequiredInSamples();
+                options.SortPropsAlphabetically();
+                #endregion
+            });*/
         }
     }
 }

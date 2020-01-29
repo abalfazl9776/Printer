@@ -43,19 +43,19 @@ namespace MyApi
 
             services.AddCustomIdentity(_siteSetting.IdentitySettings);
 
-            services.AddCustomAuthentication(Configuration);
+            //services.AddCustomAuthentication(Configuration);
 
-            services.AddCors(options =>
-            {
-                options.AddPolicy("default", policy =>
-                {
-                    policy.WithOrigins(Configuration["clientUrl"])
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
-                });
-            });
+            //services.AddCors(options =>
+            //{
+            //    options.AddPolicy("default", policy =>
+            //    {
+            //        policy.WithOrigins(Configuration["clientUrl"])
+            //            .AllowAnyHeader()
+            //            .AllowAnyMethod();
+            //    });
+            //});
 
-            services.AddControllers(/*options => options.Filters.Add(new AuthorizeFilter())*/);
+            services.AddControllers(options => options.Filters.Add(new AuthorizeFilter()));
 
             services.AddJwtAuthentication(_siteSetting.JwtSettings);
 
@@ -84,9 +84,9 @@ namespace MyApi
 
             app.UseHttpsRedirection();
 
-            app.UseRouting();
-
             app.UseSwaggerAndUI();
+
+            app.UseRouting();
 
             app.UseAuthentication();
 
@@ -94,7 +94,8 @@ namespace MyApi
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers().RequireAuthorization();
+                endpoints.MapControllers()/*.RequireAuthorization()*/;
+                //config.MapDefaultControllerRoute(); // Map default route {controller=Home}/{action=Index}/{id?}
             });
         }
     }

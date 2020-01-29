@@ -1,0 +1,17 @@
+C:\Users\avhb2\source\repos\MyApi\WebApi\WebFramework\bin\Debug\netcoreapp3.1\WebFramework.deps.json
+C:\Users\avhb2\source\repos\MyApi\WebApi\WebFramework\bin\Debug\netcoreapp3.1\WebFramework.dll
+C:\Users\avhb2\source\repos\MyApi\WebApi\WebFramework\bin\Debug\netcoreapp3.1\WebFramework.pdb
+C:\Users\avhb2\source\repos\MyApi\WebApi\WebFramework\bin\Debug\netcoreapp3.1\Common.dll
+C:\Users\avhb2\source\repos\MyApi\WebApi\WebFramework\bin\Debug\netcoreapp3.1\Data.dll
+C:\Users\avhb2\source\repos\MyApi\WebApi\WebFramework\bin\Debug\netcoreapp3.1\Entities.dll
+C:\Users\avhb2\source\repos\MyApi\WebApi\WebFramework\bin\Debug\netcoreapp3.1\Services.dll
+C:\Users\avhb2\source\repos\MyApi\WebApi\WebFramework\bin\Debug\netcoreapp3.1\Services.pdb
+C:\Users\avhb2\source\repos\MyApi\WebApi\WebFramework\bin\Debug\netcoreapp3.1\Common.pdb
+C:\Users\avhb2\source\repos\MyApi\WebApi\WebFramework\bin\Debug\netcoreapp3.1\Data.pdb
+C:\Users\avhb2\source\repos\MyApi\WebApi\WebFramework\bin\Debug\netcoreapp3.1\Entities.pdb
+C:\Users\avhb2\source\repos\MyApi\WebApi\WebFramework\obj\Debug\netcoreapp3.1\WebFramework.csprojAssemblyReference.cache
+C:\Users\avhb2\source\repos\MyApi\WebApi\WebFramework\obj\Debug\netcoreapp3.1\WebFramework.AssemblyInfoInputs.cache
+C:\Users\avhb2\source\repos\MyApi\WebApi\WebFramework\obj\Debug\netcoreapp3.1\WebFramework.AssemblyInfo.cs
+C:\Users\avhb2\source\repos\MyApi\WebApi\WebFramework\obj\Debug\netcoreapp3.1\WebFramework.csproj.CopyComplete
+C:\Users\avhb2\source\repos\MyApi\WebApi\WebFramework\obj\Debug\netcoreapp3.1\WebFramework.dll
+C:\Users\avhb2\source\repos\MyApi\WebApi\WebFramework\obj\Debug\netcoreapp3.1\WebFramework.pdb

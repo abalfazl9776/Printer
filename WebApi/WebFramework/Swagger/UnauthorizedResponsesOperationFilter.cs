@@ -3,6 +3,7 @@ using Swashbuckle.AspNetCore.Swagger;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.OpenApi.Models;
 using WebFramework.Filters;
@@ -12,22 +13,23 @@ namespace WebFramework.Swagger
     public class UnauthorizedResponsesOperationFilter : IOperationFilter
     {
         private readonly bool _includeUnauthorizedAndForbiddenResponses;
-        private readonly OpenApiSecurityScheme _schemeName;
+        private readonly string _schemeName;
 
-        public UnauthorizedResponsesOperationFilter(bool includeUnauthorizedAndForbiddenResponses, OpenApiSecurityScheme schemeName)
+        public UnauthorizedResponsesOperationFilter(bool includeUnauthorizedAndForbiddenResponses, string schemeName = "Bearer")
         {
             this._includeUnauthorizedAndForbiddenResponses = includeUnauthorizedAndForbiddenResponses;
             this._schemeName = schemeName;
         }
 
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
-        {
+        { 
             var filters = context.ApiDescription.ActionDescriptor.FilterDescriptors;
+            var metadata = context.ApiDescription.ActionDescriptor.EndpointMetadata;
 
-            var hasAnonymous = filters.Any(p => p.Filter is IAllowAnonymousFilter);
+            var hasAnonymous = filters.Any(p => p.Filter is AllowAnonymousFilter) || metadata.Any(p => p is AllowAnonymousAttribute);
             if (hasAnonymous) return;
 
-            var hasAuthorize = filters.Any(p => p.Filter is AuthorizeFilter);
+            var hasAuthorize = filters.Any(p => p.Filter is AuthorizeFilter) || metadata.Any(p => p is AuthorizeAttribute);
             if (!hasAuthorize) return;
 
             if (_includeUnauthorizedAndForbiddenResponses)
@@ -36,10 +38,17 @@ namespace WebFramework.Swagger
                 operation.Responses.TryAdd("403", new OpenApiResponse { Description = "Forbidden" });
             }
 
-            operation.Security = new List<OpenApiSecurityRequirement>
+            operation.Security.Add(new OpenApiSecurityRequirement
             {
-                new OpenApiSecurityRequirement {{_schemeName, new String[]{}}}
-            };
+                {
+                    new OpenApiSecurityScheme
+                    {
+                        Scheme = _schemeName,
+                        Reference = new OpenApiReference { Type = ReferenceType.SecurityScheme, Id = "OAuth2" }
+                    },
+                    Array.Empty<string>() //new[] { "readAccess", "writeAccess" }
+                }
+            });
         }
     }
 }

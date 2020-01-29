@@ -1,0 +1,13 @@
+C:\Users\avhb2\source\repos\MyApi\WebApi\Data\bin\Debug\netcoreapp3.1\Data.deps.json
+C:\Users\avhb2\source\repos\MyApi\WebApi\Data\bin\Debug\netcoreapp3.1\Data.dll
+C:\Users\avhb2\source\repos\MyApi\WebApi\Data\bin\Debug\netcoreapp3.1\Data.pdb
+C:\Users\avhb2\source\repos\MyApi\WebApi\Data\bin\Debug\netcoreapp3.1\Common.dll
+C:\Users\avhb2\source\repos\MyApi\WebApi\Data\bin\Debug\netcoreapp3.1\Entities.dll
+C:\Users\avhb2\source\repos\MyApi\WebApi\Data\bin\Debug\netcoreapp3.1\Entities.pdb
+C:\Users\avhb2\source\repos\MyApi\WebApi\Data\bin\Debug\netcoreapp3.1\Common.pdb
+C:\Users\avhb2\source\repos\MyApi\WebApi\Data\obj\Debug\netcoreapp3.1\Data.csprojAssemblyReference.cache
+C:\Users\avhb2\source\repos\MyApi\WebApi\Data\obj\Debug\netcoreapp3.1\Data.AssemblyInfoInputs.cache
+C:\Users\avhb2\source\repos\MyApi\WebApi\Data\obj\Debug\netcoreapp3.1\Data.AssemblyInfo.cs
+C:\Users\avhb2\source\repos\MyApi\WebApi\Data\obj\Debug\netcoreapp3.1\Data.csproj.CopyComplete
+C:\Users\avhb2\source\repos\MyApi\WebApi\Data\obj\Debug\netcoreapp3.1\Data.dll
+C:\Users\avhb2\source\repos\MyApi\WebApi\Data\obj\Debug\netcoreapp3.1\Data.pdb

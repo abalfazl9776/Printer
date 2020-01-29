@@ -57,6 +57,8 @@ namespace MyApi.Models
 
         public int Age { get; set; }
 
+        // For describing enums as string.. but no needed!
+        //[EnumDataType(typeof(GenderType))]
         public GenderType Gender { get; set; }
 
         public override void CustomMappings(IMappingExpression<User, UserSelectDto> mapping)
