@@ -28,7 +28,7 @@ namespace AuthorizationServer
         }
 
         private static string spaClientUrl = "http://localhost:4200";
-        private static string swaggerClientUrl = "http://localhost:44340";
+        private static string swaggerClientUrl = "https://localhost:44340";
 
         public static IEnumerable<Client> GetClients()
         {
@@ -79,22 +79,22 @@ namespace AuthorizationServer
                 {
                     ClientId = "swagger",
                     ClientName = "Swagger API Documentation",
-                    ClientSecrets = { new Secret("swagger".Sha256()) },
+                    //ClientSecrets = { new Secret("swagger".Sha256()) },
 
-                    AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    //AllowedGrantTypes = GrantTypes.ClientCredentials,
+                    AllowedGrantTypes = GrantTypes.Implicit,
                     AllowAccessTokensViaBrowser = true,
                     RedirectUris = new List<string>
                     {
-                        $"{swaggerClientUrl}/swagger",
+                        $"{swaggerClientUrl}/oauth2-redirect.html",
                     },
-                    RequireClientSecret = false,
+                    //RequireClientSecret = false,
                     // scopes that client has access to
                     AllowedScopes = new List<string>
                     {
-                        IdentityServerConstants.StandardScopes.OpenId,
-                        IdentityServerConstants.StandardScopes.Profile,
                         "resourceApi"
-                    }
+                    },
+                    
                 },/*
                 //// interactive ASP.NET Core MVC client
                 //new Client

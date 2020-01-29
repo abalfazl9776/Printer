@@ -65,6 +65,7 @@ C:\Users\avhb2\source\repos\MyApi\IDP\IdentityServer\bin\Debug\netcoreapp3.1\run
 C:\Users\avhb2\source\repos\MyApi\IDP\IdentityServer\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\avhb2\source\repos\MyApi\IDP\IdentityServer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\avhb2\source\repos\MyApi\IDP\IdentityServer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\avhb2\source\repos\MyApi\IDP\IdentityServer\obj\Debug\netcoreapp3.1\IdentityServer.csprojAssemblyReference.cache
 C:\Users\avhb2\source\repos\MyApi\IDP\IdentityServer\obj\Debug\netcoreapp3.1\staticwebassets\IdentityServer.StaticWebAssets.Manifest.cache
 C:\Users\avhb2\source\repos\MyApi\IDP\IdentityServer\obj\Debug\netcoreapp3.1\staticwebassets\IdentityServer.StaticWebAssets.xml
 C:\Users\avhb2\source\repos\MyApi\IDP\IdentityServer\obj\Debug\netcoreapp3.1\IdentityServer.MvcApplicationPartsAssemblyInfo.cache
@@ -99,4 +100,3 @@ C:\Users\avhb2\source\repos\MyApi\IDP\IdentityServer\obj\Debug\netcoreapp3.1\Ide
 C:\Users\avhb2\source\repos\MyApi\IDP\IdentityServer\obj\Debug\netcoreapp3.1\IdentityServer.csproj.CopyComplete
 C:\Users\avhb2\source\repos\MyApi\IDP\IdentityServer\obj\Debug\netcoreapp3.1\IdentityServer.dll
 C:\Users\avhb2\source\repos\MyApi\IDP\IdentityServer\obj\Debug\netcoreapp3.1\IdentityServer.pdb
-C:\Users\avhb2\source\repos\MyApi\IDP\IdentityServer\obj\Debug\netcoreapp3.1\IdentityServer.csprojAssemblyReference.cache

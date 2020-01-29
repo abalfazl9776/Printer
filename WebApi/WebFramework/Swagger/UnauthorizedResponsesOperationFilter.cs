@@ -29,6 +29,7 @@ namespace WebFramework.Swagger
             var hasAnonymous = filters.Any(p => p.Filter is AllowAnonymousFilter) || metadata.Any(p => p is AllowAnonymousAttribute);
             if (hasAnonymous) return;
 
+            //var hasAuthorize = context.ControllerActionDescriptor.GetControllerAndActionAttributes(true).OfType<AuthorizeAttribute>().Any();
             var hasAuthorize = filters.Any(p => p.Filter is AuthorizeFilter) || metadata.Any(p => p is AuthorizeAttribute);
             if (!hasAuthorize) return;
 
@@ -49,6 +50,11 @@ namespace WebFramework.Swagger
                     Array.Empty<string>() //new[] { "readAccess", "writeAccess" }
                 }
             });
+
+            //operation.Security = new List<IDictionary<string, IEnumerable<string>>>
+            //{
+            //    new Dictionary<string, IEnumerable<string>> {{"oauth2", new[] {"demo_api"}}}
+            //};
         }
     }
 }

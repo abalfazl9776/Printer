@@ -84,6 +84,7 @@ namespace WebFramework.Configuration
                         var userRepository = context.HttpContext.RequestServices.GetRequiredService<IUserRepository>();
 
                         var claimsIdentity = context.Principal.Identity as ClaimsIdentity;
+                        Assert.NotNull(claimsIdentity, nameof(claimsIdentity), "The token claims is null. This token has no claims.");
                         if (claimsIdentity.Claims?.Any() != true)
                             context.Fail("This token has no claims.");
 

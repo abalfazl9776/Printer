@@ -135,29 +135,54 @@ namespace WebFramework.Swagger
                     }
                 });*/
                 #endregion
-                options.AddSecurityDefinition("OAuth2", new OpenApiSecurityScheme
-                {
-                    //Scheme = "Bearer",
-                    //In = ParameterLocation.Header,
-                    Type = SecuritySchemeType.OAuth2,
-                    Flows = new OpenApiOAuthFlows
-                    {
-                        Password = new OpenApiOAuthFlow
-                        {
-                            TokenUrl = new Uri("https://localhost:44340/api/v1/user/Token"),
-                            //AuthorizationUrl = new Uri("https://localhost:44340/api/v1/users/Token"),
-                            //Scopes = new Dictionary<string, string>
-                            //{
-                            //    { "readAccess", "Access read operations" },
-                            //    { "writeAccess", "Access write operations" }
-                            //}
-                        }
-                    }
-                });
+                
+                #region Add security lock to all methods
                 //options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
                 //{
                 //    {"Bearer", new string[] { }}
                 //});
+                #endregion
+
+                #region Using JWT
+                //options.AddSecurityDefinition("OAuth2", new OpenApiSecurityScheme
+                //{
+                //    //Scheme = "Bearer",
+                //    //In = ParameterLocation.Header,
+                //    Type = SecuritySchemeType.OAuth2,
+                //    Flows = new OpenApiOAuthFlows
+                //    {
+                //        Password = new OpenApiOAuthFlow
+                //        {
+                //            TokenUrl = new Uri("https://localhost:44340/api/v1/user/Token"),
+                //            //AuthorizationUrl = new Uri("https://localhost:44340/api/v1/users/Token"),
+                //            //Scopes = new Dictionary<string, string>
+                //            //{
+                //            //    { "readAccess", "Access read operations" },
+                //            //    { "writeAccess", "Access write operations" }
+                //            //}
+                //        }
+                //    }
+                //});
+                #endregion
+
+                #region Using IS4
+                options.AddSecurityDefinition("OAuth2", new OpenApiSecurityScheme
+                {
+                    Type = SecuritySchemeType.OAuth2,
+                    Flows = new OpenApiOAuthFlows
+                    {
+                        Implicit = new OpenApiOAuthFlow
+                        {
+                            AuthorizationUrl = new Uri("https://localhost:44370/connect/authorize"),
+                            Scopes = new Dictionary<string, string>
+                            {
+                                { "resourceApi", "Resource API - full access" }
+                            }
+                        }
+                    }
+                });
+                #endregion
+
                 #endregion
 
                 #region Add UnAuthorized to Response
@@ -169,7 +194,7 @@ namespace WebFramework.Swagger
                 // Remove version parameter from all Operations
                 options.OperationFilter<RemoveVersionParameters>();
 
-                //set version "api/v{version}/[controller]" from current swagger doc verion
+                //set version "api/v{version}/[controller]" from current swagger doc version
                 options.DocumentFilter<SetVersionInPaths>();
 
                 //Separate and categorize end-points by doc version
@@ -190,17 +215,17 @@ namespace WebFramework.Swagger
             });
         }
 
-        public static void UseSwaggerAndUI(this IApplicationBuilder app)
+        public static void UseSwaggerAndUi(this IApplicationBuilder app)
         {
             Assert.NotNull(app, nameof(app));
 
             //More info : https://github.com/domaindrivendev/Swashbuckle.AspNetCore
 
             //Swagger middleware for generate "Open API Documentation" in swagger.json
-            app.UseSwagger(options =>
+            app.UseSwagger(/*options =>
             {
-                //options.RouteTemplate = "api-docs/{documentName}/swagger.json";
-            });
+                options.RouteTemplate = "api-docs/{documentName}/swagger.json";
+            }*/);
 
             //Swagger middleware for generate UI from swagger.json
             app.UseSwaggerUI(options =>
@@ -231,6 +256,7 @@ namespace WebFramework.Swagger
 
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
                 options.SwaggerEndpoint("/swagger/v2/swagger.json", "V2 Docs");
+                options.RoutePrefix = string.Empty;
 
                 options.OAuthClientId("swagger");
                 options.OAuthAppName("Swagger API Documentation");

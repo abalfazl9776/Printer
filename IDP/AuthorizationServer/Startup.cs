@@ -1,6 +1,7 @@
 using System.Reflection;
 using AuthorizationServer.Data;
 using AuthorizationServer.Services;
+using IdentityServer4.Quickstart.UI;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Identity;

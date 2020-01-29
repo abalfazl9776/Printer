@@ -1,5 +1,6 @@
 C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\bin\Debug\netcoreapp3.1\appsettings.Development.json
 C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\bin\Debug\netcoreapp3.1\appsettings.json
+C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\bin\Debug\netcoreapp3.1\bundleconfig.json
 C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\bin\Debug\netcoreapp3.1\Properties\launchSettings.json
 C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\bin\Debug\netcoreapp3.1\AuthorizationServer.exe
 C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\bin\Debug\netcoreapp3.1\AuthorizationServer.deps.json
@@ -56,6 +57,7 @@ C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\bin\Debug\netcoreapp3.
 C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.dll
 C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Protocols.OpenIdConnect.dll
 C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\bin\Debug\netcoreapp3.1\Microsoft.IdentityModel.Tokens.dll
+C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.BrowserLink.dll
 C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.dll
 C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Contracts.dll
 C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.CodeGeneration.Core.dll
@@ -146,6 +148,7 @@ C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\bin\Debug\netcoreapp3.
 C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\bin\Debug\netcoreapp3.1\runtimes\unix\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netcoreapp2.0\System.Runtime.Caching.dll
 C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\bin\Debug\netcoreapp3.1\runtimes\win\lib\netstandard2.0\System.Security.Cryptography.ProtectedData.dll
+C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\obj\Debug\netcoreapp3.1\AuthorizationServer.csprojAssemblyReference.cache
 C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\obj\Debug\netcoreapp3.1\staticwebassets\AuthorizationServer.StaticWebAssets.Manifest.cache
 C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\obj\Debug\netcoreapp3.1\staticwebassets\AuthorizationServer.StaticWebAssets.xml
 C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\obj\Debug\netcoreapp3.1\AuthorizationServer.MvcApplicationPartsAssemblyInfo.cache
@@ -212,6 +215,3 @@ C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\obj\Debug\netcoreapp3.
 C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\obj\Debug\netcoreapp3.1\AuthorizationServer.csproj.CopyComplete
 C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\obj\Debug\netcoreapp3.1\AuthorizationServer.dll
 C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\obj\Debug\netcoreapp3.1\AuthorizationServer.pdb
-C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\obj\Debug\netcoreapp3.1\AuthorizationServer.csprojAssemblyReference.cache
-C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\bin\Debug\netcoreapp3.1\bundleconfig.json
-C:\Users\avhb2\source\repos\MyApi\IDP\AuthorizationServer\bin\Debug\netcoreapp3.1\Microsoft.VisualStudio.Web.BrowserLink.dll
