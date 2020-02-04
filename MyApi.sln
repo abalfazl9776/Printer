@@ -21,8 +21,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{ED696C
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorizationServer", "IDP\AuthorizationServer\AuthorizationServer.csproj", "{A2408DBF-6911-4AB5-8000-8EB13C27F634}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "IDP\IdentityServer\IdentityServer.csproj", "{68B9620B-E280-48BE-9BE1-A43C7CFF997A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -57,10 +55,6 @@ Global
 		{A2408DBF-6911-4AB5-8000-8EB13C27F634}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2408DBF-6911-4AB5-8000-8EB13C27F634}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2408DBF-6911-4AB5-8000-8EB13C27F634}.Release|Any CPU.Build.0 = Release|Any CPU
-		{68B9620B-E280-48BE-9BE1-A43C7CFF997A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{68B9620B-E280-48BE-9BE1-A43C7CFF997A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{68B9620B-E280-48BE-9BE1-A43C7CFF997A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{68B9620B-E280-48BE-9BE1-A43C7CFF997A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -73,7 +67,6 @@ Global
 		{9DD2F980-B307-4BA1-9DC0-C6BDC632CEC5} = {ED696C4E-5A22-4FCA-BBCF-24CD03E5109F}
 		{451717D3-3252-40E9-821D-1589C7A0FB9D} = {ED696C4E-5A22-4FCA-BBCF-24CD03E5109F}
 		{A2408DBF-6911-4AB5-8000-8EB13C27F634} = {5F3F397B-3AB6-4897-ABA1-36E5C8D62559}
-		{68B9620B-E280-48BE-9BE1-A43C7CFF997A} = {5F3F397B-3AB6-4897-ABA1-36E5C8D62559}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1D77AA14-B819-42DC-A010-C56E85770F13}

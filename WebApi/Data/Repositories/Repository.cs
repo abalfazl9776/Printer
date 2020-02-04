@@ -60,7 +60,6 @@ namespace Data.Repositories
         public virtual async Task UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken,
             bool saveNow = true)
         {
-
             Assert.NotNull(entities, nameof(entities));
             Entities.UpdateRange(entities);
             if (saveNow)
@@ -73,6 +72,16 @@ namespace Data.Repositories
             Entities.Remove(entity);
             if (saveNow)
                 await DbContext.SaveChangesAsync(cancellationToken);
+
+            /*
+            Entities.Update(entity);
+            if (saveNow)
+                await DbContext.SaveChangesAsync(cancellationToken);
+
+            await Entities.AddAsync(entity, cancellationToken).ConfigureAwait(false);
+            if (saveNow)
+                await DbContext.SaveChangesAsync(cancellationToken).ConfigureAwait(false);
+            */
         }
 
         public virtual async Task DeleteRangeAsync(IEnumerable<TEntity> entities, CancellationToken cancellationToken,

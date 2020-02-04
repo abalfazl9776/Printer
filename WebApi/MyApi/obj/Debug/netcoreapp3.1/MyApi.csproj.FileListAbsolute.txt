@@ -30,6 +30,7 @@ C:\Users\avhb2\source\repos\MyApi\WebApi\MyApi\bin\Debug\netcoreapp3.1\Microsoft
 C:\Users\avhb2\source\repos\MyApi\WebApi\MyApi\bin\Debug\netcoreapp3.1\Microsoft.DotNet.PlatformAbstractions.dll
 C:\Users\avhb2\source\repos\MyApi\WebApi\MyApi\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.dll
 C:\Users\avhb2\source\repos\MyApi\WebApi\MyApi\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Abstractions.dll
+C:\Users\avhb2\source\repos\MyApi\WebApi\MyApi\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Design.dll
 C:\Users\avhb2\source\repos\MyApi\WebApi\MyApi\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.Relational.dll
 C:\Users\avhb2\source\repos\MyApi\WebApi\MyApi\bin\Debug\netcoreapp3.1\Microsoft.EntityFrameworkCore.SqlServer.dll
 C:\Users\avhb2\source\repos\MyApi\WebApi\MyApi\bin\Debug\netcoreapp3.1\Microsoft.Extensions.Caching.Abstractions.dll

@@ -43,7 +43,7 @@ namespace MyApi
 
             services.AddCustomIdentity(_siteSetting.IdentitySettings);
 
-            services.AddIs4Authentication(Configuration);
+            //services.AddIs4Authentication(Configuration);
 
             //services.AddCors(options =>
             //{
@@ -57,7 +57,7 @@ namespace MyApi
 
             services.AddControllers(options => options.Filters.Add(new AuthorizeFilter()));
 
-            //services.AddJwtAuthentication(_siteSetting.JwtSettings);
+            services.AddJwtAuthentication(_siteSetting.JwtSettings);
 
             services.AddCustomApiVersioning();
 

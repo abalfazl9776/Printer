@@ -50,7 +50,7 @@ namespace Common.Utilities
         }
 
         /// <summary>
-        /// Set DefaultValueSql for sepecific property name and type
+        /// Set DefaultValueSql for specific property name and type
         /// </summary>
         /// <param name="modelBuilder"></param>
         /// <param name="propertyName">Name of property wants to set DefaultValueSql for</param>
@@ -118,5 +118,6 @@ namespace Common.Utilities
             foreach (Type type in types)
                 modelBuilder.Entity(type);
         }
+
     }
 }

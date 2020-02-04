@@ -83,18 +83,18 @@ namespace WebFramework.Swagger
                     Version = "v1",
                     Title = "API V1",
                     Description = "A ASP.NET Core 3.0 Web API",
-                    TermsOfService = new Uri("https://abalfazl9776.github.io"),
                     Contact = new OpenApiContact
                     {
                         Name = "Abolfazl Vayani",
                         Email = "avhb2lr@gmail.com",
-                        Url = new Uri("https://abalfazl9776.github.io"),
+                        Url = new Uri("https://github.com/abalfazl9776"),
                     },
+                    /*TermsOfService = new Uri("https://abalfazl9776.github.io"),
                     License = new OpenApiLicense
                     {
                         Name = "Use under LICX",
                         Url = new Uri("https://abalfazl9776.github.io"),
-                    }
+                    }*/
                 });
                 options.SwaggerDoc("v2", new OpenApiInfo { Version = "v2", Title = "API V2" });
 
@@ -135,7 +135,7 @@ namespace WebFramework.Swagger
                     }
                 });*/
                 #endregion
-                
+
                 #region Add security lock to all methods
                 //options.AddSecurityRequirement(new Dictionary<string, IEnumerable<string>>
                 //{
@@ -144,36 +144,17 @@ namespace WebFramework.Swagger
                 #endregion
 
                 #region Using JWT
-                //options.AddSecurityDefinition("OAuth2", new OpenApiSecurityScheme
-                //{
-                //    //Scheme = "Bearer",
-                //    //In = ParameterLocation.Header,
-                //    Type = SecuritySchemeType.OAuth2,
-                //    Flows = new OpenApiOAuthFlows
-                //    {
-                //        Password = new OpenApiOAuthFlow
-                //        {
-                //            TokenUrl = new Uri("https://localhost:44340/api/v1/user/Token"),
-                //            //AuthorizationUrl = new Uri("https://localhost:44340/api/v1/users/Token"),
-                //            //Scopes = new Dictionary<string, string>
-                //            //{
-                //            //    { "readAccess", "Access read operations" },
-                //            //    { "writeAccess", "Access write operations" }
-                //            //}
-                //        }
-                //    }
-                //});
-                #endregion
-
-                #region Using IS4
                 options.AddSecurityDefinition("OAuth2", new OpenApiSecurityScheme
                 {
+                    //Scheme = "Bearer",
+                    //In = ParameterLocation.Header,
                     Type = SecuritySchemeType.OAuth2,
                     Flows = new OpenApiOAuthFlows
                     {
-                        Implicit = new OpenApiOAuthFlow
+                        Password = new OpenApiOAuthFlow
                         {
-                            AuthorizationUrl = new Uri("https://localhost:44370/connect/authorize"),
+                            TokenUrl = new Uri("https://localhost:44340/api/v1/user/Token"),
+                            //AuthorizationUrl = new Uri("https://localhost:44340/api/v1/users/Token"),
                             Scopes = new Dictionary<string, string>
                             {
                                 { "resourceApi", "Resource API - full access" }
@@ -181,6 +162,24 @@ namespace WebFramework.Swagger
                         }
                     }
                 });
+                #endregion
+
+                #region Using IS4
+                //options.AddSecurityDefinition("OAuth2", new OpenApiSecurityScheme
+                //{
+                //    Type = SecuritySchemeType.OAuth2,
+                //    Flows = new OpenApiOAuthFlows
+                //    {
+                //        Implicit = new OpenApiOAuthFlow
+                //        {
+                //            AuthorizationUrl = new Uri("https://localhost:44370/connect/authorize"),
+                //            Scopes = new Dictionary<string, string>
+                //            {
+                //                { "resourceApi", "Resource API - full access" }
+                //            }
+                //        }
+                //    }
+                //});
                 #endregion
 
                 #endregion

@@ -19,8 +19,7 @@ namespace Entities.User
             IsActive = true;
         }
 
-        [Required]
-        [StringLength(100)]
+        /*[StringLength(100)]*/
         public string FullName { get; set; }
 
         [Column(TypeName = "date")]
@@ -36,18 +35,19 @@ namespace Entities.User
     {
         public void Configure(EntityTypeBuilder<User> builder)
         {
-            builder.Property(p => p.UserName).IsRequired().HasMaxLength(100);
+            builder.Property(p => p.UserName).IsRequired().HasMaxLength(50);
+            builder.Property(p => p.FullName).HasMaxLength(100);
         }
     }
 
     [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum GenderType
     {
-        [EnumMember(Value = "FEMALE")]
+        [EnumMember(Value = "Female")]
         //[Display(Name = "خانم")]
         Female = 0,
 
-        [EnumMember(Value = "MALE")]
+        [EnumMember(Value = "Male")]
         //[Display(Name = "آقا")]
         Male = 1
     }
