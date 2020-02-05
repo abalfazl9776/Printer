@@ -11,7 +11,9 @@ namespace Entities.Service
 {
     public class Service : BaseEntity
     {
-        public String Name { get; set; }
+        public string Name { get; set; }
+
+        public ICollection<Category> Categories { get; set; }
     }
 
     public class ServiceConfiguration : IEntityTypeConfiguration<Service>

@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
+using Entities.Client;
 using Entities.Common;
 
 namespace Entities.Customer
 {
-    public abstract class Customer<TEntity>
-        where TEntity : class
+    public abstract class Customer : Client.Client
     {
-        public int Id { get; set; }
-
-        public Address<TEntity> Address { get; set; }
-
-        public User.User User { get; set; }
     }
+    
 }

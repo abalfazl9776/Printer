@@ -17,9 +17,9 @@ namespace Data.Repositories
         {
         }
 
-        public Task<Description> GetDescription(Service service, Category category, CancellationToken cancellationToken)
+        public Task<Description> GetDescription(Category category, CancellationToken cancellationToken)
         {
-            return Table.Where(p => p.Service.Id.Equals(service.Id) && p.Category.Id.Equals(category.Id))
+            return Table.Where(p => p.Category.Id.Equals(category.Id))
                 .SingleOrDefaultAsync(cancellationToken);
         }
 

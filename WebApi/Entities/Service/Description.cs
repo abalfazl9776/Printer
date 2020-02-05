@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
 using Entities.Common;
 using Microsoft.EntityFrameworkCore;
@@ -11,10 +12,9 @@ namespace Entities.Service
     {
         public List<ImageUrl> ImageUrlsList { get; set; }
 
-        public String DescriptionText { get; set; }
+        public string DescriptionText { get; set; }
         
-        public Service Service { get; set; }
-
+        [ForeignKey(nameof(Entities.Service.Category)+nameof(Entities.Service.Category.Id))]
         public Category Category { get; set; }
 
     }
@@ -29,7 +29,7 @@ namespace Entities.Service
 
     public class ImageUrl : BaseEntity
     {
-        public String Url { get; set; }
+        public string Url { get; set; }
     }
 
     public class ImagesUrlsConfiguration : IEntityTypeConfiguration<ImageUrl>

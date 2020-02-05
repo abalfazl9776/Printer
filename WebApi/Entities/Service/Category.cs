@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json.Serialization;
@@ -11,8 +12,11 @@ namespace Entities.Service
 {
     public class Category : BaseEntity
     {
-        public String Name { get; set; }
+        public string Name { get; set; }
+
         public Service Service { get; set; }
+
+        public Description Description { get; set; }
 
     }
 

@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 using Entities.Common;
 
 namespace Entities.PrintingHouse
 {
-    public class PrintingHouse : BaseEntity
+    public class PrintingHouse : Client.Client
     {
-        public User.User User { get; set; }
-
-        public String Name { get; set; }
+        public string Name { get; set; }
 
         public long LicenseNumber { get; set; }
 
-        public Address<PrintingHouse> Address { get; set; }
+        public PrintingHouseWallet Wallet { get; set; }
 
     }
 }

@@ -25,8 +25,6 @@ namespace MyApi
                 .AddEnvironmentVariables();
             this.Configuration = builder.Build();
 
-            AutoMapperConfiguration.InitializeAutoMapper();
-
             _siteSetting = Configuration.GetSection(nameof(SiteSettings)).Get<SiteSettings>();
         }
 
@@ -38,6 +36,8 @@ namespace MyApi
         public void ConfigureServices(IServiceCollection services)
         {
             services.Configure<SiteSettings>(Configuration.GetSection(nameof(SiteSettings)));
+
+            services.InitializeAutoMapper();
 
             services.AddDbContext(Configuration);
 

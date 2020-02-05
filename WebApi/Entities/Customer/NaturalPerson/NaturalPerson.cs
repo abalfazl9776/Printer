@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using Entities.Common;
+﻿using Entities.Common;
 
 namespace Entities.Customer.NaturalPerson
 {
-    public class NaturalPerson : Customer<NaturalPerson>, IEntity
+    public class NaturalPerson : Customer
     {
-        public String FirstName { get; set; }
-        public String LastName { get; set; }
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
 
     }
 }

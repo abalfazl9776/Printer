@@ -914,6 +914,7 @@
       "Entities/1.0.0": {
         "dependencies": {
           "Common": "1.0.0",
+          "Microsoft.EntityFrameworkCore": "3.1.1",
           "Microsoft.Extensions.Identity.Stores": "3.1.1"
         },
         "runtime": {

@@ -10,7 +10,7 @@ namespace Data.Contracts
 {
     public interface IDescriptionRepository : IRepository<Description>
     {
-        Task<Description> GetDescription(Service service, Category category, CancellationToken cancellationToken);
+        Task<Description> GetDescription(Category category, CancellationToken cancellationToken);
         /*Task AddAsync(User user, string password, CancellationToken cancellationToken);
         Task UpdateSecurityStampAsync(User user, CancellationToken cancellationToken);
         Task UpdateLastLoginDateAsync(User user, CancellationToken cancellationToken);*/

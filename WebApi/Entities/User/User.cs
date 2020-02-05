@@ -1,9 +1,11 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Runtime.Serialization;
 using System.Text;
 using System.Text.Json.Serialization;
+using Entities.Client;
 using Entities.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -19,15 +21,14 @@ namespace Entities.User
             IsActive = true;
         }
 
-        /*[StringLength(100)]*/
-        public string FullName { get; set; }
+        /*[Column(TypeName = "date")]
+        public DateTime BirthDate { get; set; }*/
 
-        [Column(TypeName = "date")]
-        public DateTime BirthDate { get; set; }
-
-        public GenderType Gender { get; set; }
+        /*public GenderType Gender { get; set; }*/
         public bool IsActive { get; set; }
         public DateTimeOffset LastLoginDate { get; set; }
+
+        public ICollection<Address> Addresses { get; set; }
 
     }
 
@@ -36,11 +37,11 @@ namespace Entities.User
         public void Configure(EntityTypeBuilder<User> builder)
         {
             builder.Property(p => p.UserName).IsRequired().HasMaxLength(50);
-            builder.Property(p => p.FullName).HasMaxLength(100);
+            /*builder.Property(p => p.FullName).HasMaxLength(100);*/
         }
     }
 
-    [JsonConverter(typeof(JsonStringEnumConverter))]
+    /*[JsonConverter(typeof(JsonStringEnumConverter))]
     public enum GenderType
     {
         [EnumMember(Value = "Female")]
@@ -50,5 +51,5 @@ namespace Entities.User
         [EnumMember(Value = "Male")]
         //[Display(Name = "آقا")]
         Male = 1
-    }
+    }*/
 }

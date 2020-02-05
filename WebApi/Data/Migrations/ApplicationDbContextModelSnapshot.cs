@@ -19,6 +19,102 @@ namespace Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+            modelBuilder.Entity("Entities.Client.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("BuildingName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("City")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Country")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("District")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("HouseNumber")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MainStreet")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Phone")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("State")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SubStreet")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Unit")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Zip")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("Addresses");
+                });
+
+            modelBuilder.Entity("Entities.Customer.AdvertisingCenter.AdvertisingCenter", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<long>("LicenseNumber")
+                        .HasColumnType("bigint");
+
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AdvertisingCenters");
+                });
+
+            modelBuilder.Entity("Entities.Customer.NaturalPerson.NaturalPerson", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("FirstName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("LastName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("NaturalPeople");
+                });
+
             modelBuilder.Entity("Entities.PrintingHouse.PrintingHouse", b =>
                 {
                     b.Property<int>("Id")
@@ -26,10 +122,18 @@ namespace Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<long>("LicenseNumber")
+                        .HasColumnType("bigint");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int?>("UserId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("PrintingHouses");
                 });
@@ -49,7 +153,9 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PrintingHouseId");
+                    b.HasIndex("PrintingHouseId")
+                        .IsUnique()
+                        .HasFilter("[PrintingHouseId] IS NOT NULL");
 
                     b.ToTable("PrintingHouseWallets");
                 });
@@ -91,19 +197,16 @@ namespace Data.Migrations
                         .HasColumnType("nvarchar(max)")
                         .HasMaxLength(10000);
 
-                    b.Property<int?>("ServiceId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("CategoryId");
-
-                    b.HasIndex("ServiceId");
+                    b.HasIndex("CategoryId")
+                        .IsUnique()
+                        .HasFilter("[CategoryId] IS NOT NULL");
 
                     b.ToTable("Descriptions");
                 });
 
-            modelBuilder.Entity("Entities.Service.ImagesUrls", b =>
+            modelBuilder.Entity("Entities.Service.ImageUrl", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -122,7 +225,7 @@ namespace Data.Migrations
 
                     b.HasIndex("DescriptionId");
 
-                    b.ToTable("ImagesUrls");
+                    b.ToTable("ImageUrls");
                 });
 
             modelBuilder.Entity("Entities.Service.Service", b =>
@@ -187,9 +290,6 @@ namespace Data.Migrations
                     b.Property<int>("AccessFailedCount")
                         .HasColumnType("int");
 
-                    b.Property<DateTime>("BirthDate")
-                        .HasColumnType("date");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken()
                         .HasColumnType("nvarchar(max)");
@@ -200,13 +300,6 @@ namespace Data.Migrations
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("FullName")
-                        .HasColumnType("nvarchar(100)")
-                        .HasMaxLength(100);
-
-                    b.Property<int>("Gender")
-                        .HasColumnType("int");
 
                     b.Property<bool>("IsActive")
                         .HasColumnType("bit");
@@ -362,35 +455,59 @@ namespace Data.Migrations
                     b.ToTable("AspNetUserTokens");
                 });
 
+            modelBuilder.Entity("Entities.Client.Address", b =>
+                {
+                    b.HasOne("Entities.User.User", "User")
+                        .WithMany("Addresses")
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Entities.Customer.AdvertisingCenter.AdvertisingCenter", b =>
+                {
+                    b.HasOne("Entities.User.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Entities.Customer.NaturalPerson.NaturalPerson", b =>
+                {
+                    b.HasOne("Entities.User.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
+            modelBuilder.Entity("Entities.PrintingHouse.PrintingHouse", b =>
+                {
+                    b.HasOne("Entities.User.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId");
+                });
+
             modelBuilder.Entity("Entities.PrintingHouse.PrintingHouseWallet", b =>
                 {
                     b.HasOne("Entities.PrintingHouse.PrintingHouse", "PrintingHouse")
-                        .WithMany()
-                        .HasForeignKey("PrintingHouseId");
+                        .WithOne("Wallet")
+                        .HasForeignKey("Entities.PrintingHouse.PrintingHouseWallet", "PrintingHouseId");
                 });
 
             modelBuilder.Entity("Entities.Service.Category", b =>
                 {
                     b.HasOne("Entities.Service.Service", "Service")
-                        .WithMany()
+                        .WithMany("Categories")
                         .HasForeignKey("ServiceId");
                 });
 
             modelBuilder.Entity("Entities.Service.Description", b =>
                 {
                     b.HasOne("Entities.Service.Category", "Category")
-                        .WithMany()
-                        .HasForeignKey("CategoryId");
-
-                    b.HasOne("Entities.Service.Service", "Service")
-                        .WithMany()
-                        .HasForeignKey("ServiceId");
+                        .WithOne("Description")
+                        .HasForeignKey("Entities.Service.Description", "CategoryId");
                 });
 
-            modelBuilder.Entity("Entities.Service.ImagesUrls", b =>
+            modelBuilder.Entity("Entities.Service.ImageUrl", b =>
                 {
                     b.HasOne("Entities.Service.Description", null)
-                        .WithMany("ImagesUrlList")
+                        .WithMany("ImageUrlsList")
                         .HasForeignKey("DescriptionId");
                 });
 

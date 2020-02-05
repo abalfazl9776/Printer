@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
+using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Common.Exceptions;
 using Data.Contracts;
@@ -29,9 +30,10 @@ namespace MyApi.Controllers.v1
         private readonly UserManager<User> _userManager;
         private readonly RoleManager<Role> _roleManager;
         private readonly SignInManager<User> _signInManager;
+        private readonly IMapper _mapper;
 
-        public UserController(IUserRepository userRepository, ILogger<UserController> logger, IJwtService jwtService, 
-            UserManager<User> userManager, RoleManager<Role> roleManager, SignInManager<User> signInManager)
+        public UserController(IUserRepository userRepository, ILogger<UserController> logger, IJwtService jwtService,
+            UserManager<User> userManager, RoleManager<Role> roleManager, SignInManager<User> signInManager, IMapper mapper)
         {
             _userRepository = userRepository;
             _logger = logger;
@@ -39,15 +41,16 @@ namespace MyApi.Controllers.v1
             _userManager = userManager;
             _roleManager = roleManager;
             _signInManager = signInManager;
+            _mapper = mapper;
         }
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
         public async Task<ApiResult<List<UserSelectDto>>> Get(CancellationToken cancellationToken)
         {
-            var usersList = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>()
+            var usersList = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>(_mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
-
+            
             return Ok(usersList);
         }
 
@@ -55,7 +58,7 @@ namespace MyApi.Controllers.v1
         [Authorize]
         public async Task<ApiResult<UserSelectDto>> Get(int id, CancellationToken cancellationToken)
         {
-            var user = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>()
+            var user = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>(_mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync(p => p.Id.Equals(id), cancellationToken);
 
             if (user == null)
@@ -107,7 +110,7 @@ namespace MyApi.Controllers.v1
 
             //return Ok(userDto);
 
-            var user = userDto.ToEntity();
+            var user = userDto.ToEntity(_mapper);
 
             await _userManager.CreateAsync(user, userDto.Password);
 
@@ -115,7 +118,8 @@ namespace MyApi.Controllers.v1
 
             //var result3 = await _userManager.AddToRoleAsync(user, "Admin");
 
-            var resultDto = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>().SingleOrDefaultAsync(p => p.Id.Equals(user.Id), cancellationToken);
+            var resultDto = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>(_mapper.ConfigurationProvider)
+                .SingleOrDefaultAsync(p => p.Id.Equals(user.Id), cancellationToken);
 
             return resultDto;
         }
@@ -125,11 +129,12 @@ namespace MyApi.Controllers.v1
         {
             var updateUser = await _userRepository.GetByIdAsync(cancellationToken, id);
 
-            updateUser = userDto.ToEntity(updateUser);
+            updateUser = userDto.ToEntity(_mapper, updateUser);
 
             await _userRepository.UpdateAsync(updateUser, cancellationToken);
 
-            var resultDto = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>().SingleOrDefaultAsync(p => p.Id.Equals(updateUser.Id), cancellationToken);
+            var resultDto = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>(_mapper.ConfigurationProvider)
+                .SingleOrDefaultAsync(p => p.Id.Equals(updateUser.Id), cancellationToken);
 
             return resultDto;
         }

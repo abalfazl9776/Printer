@@ -12,6 +12,7 @@ C:\Users\avhb2\source\repos\MyApi\WebApi\MyApi\bin\Debug\netcoreapp3.1\MyApi.xml
 C:\Users\avhb2\source\repos\MyApi\WebApi\MyApi\bin\Debug\netcoreapp3.1\Autofac.dll
 C:\Users\avhb2\source\repos\MyApi\WebApi\MyApi\bin\Debug\netcoreapp3.1\Autofac.Extensions.DependencyInjection.dll
 C:\Users\avhb2\source\repos\MyApi\WebApi\MyApi\bin\Debug\netcoreapp3.1\AutoMapper.dll
+C:\Users\avhb2\source\repos\MyApi\WebApi\MyApi\bin\Debug\netcoreapp3.1\AutoMapper.Extensions.Microsoft.DependencyInjection.dll
 C:\Users\avhb2\source\repos\MyApi\WebApi\MyApi\bin\Debug\netcoreapp3.1\IdentityModel.dll
 C:\Users\avhb2\source\repos\MyApi\WebApi\MyApi\bin\Debug\netcoreapp3.1\IdentityModel.AspNetCore.OAuth2Introspection.dll
 C:\Users\avhb2\source\repos\MyApi\WebApi\MyApi\bin\Debug\netcoreapp3.1\IdentityServer4.AccessTokenValidation.dll
