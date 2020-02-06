@@ -71,6 +71,7 @@ namespace WebFramework.Api
             var model = await Repository.GetByIdAsync(cancellationToken, id);
 
             model = dto.ToEntity(Mapper, model);
+            model.Id = id;
 
             await Repository.UpdateAsync(model, cancellationToken);
 

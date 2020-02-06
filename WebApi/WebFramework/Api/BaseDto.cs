@@ -45,6 +45,8 @@ namespace WebFramework.Api
             {
                 if (dtoType.GetProperty(property.Name) == null)
                     mappingExpression.ForMember(property.Name, opt => opt.Ignore());
+                if (property.Name == "Id")
+                    mappingExpression.ForMember(property.Name, opt => opt.Ignore());
             }
 
             CustomMappings(mappingExpression.ReverseMap());

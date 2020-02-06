@@ -21,27 +21,37 @@ namespace Entities.User
             IsActive = true;
         }
 
-        /*[Column(TypeName = "date")]
-        public DateTime BirthDate { get; set; }*/
+        public string FirstName { get; set; }
 
-        /*public GenderType Gender { get; set; }*/
+        public string LastName { get; set; }
+
+        [Column(TypeName = "date")]
+        public DateTime BirthDate { get; set; }
+
+        public GenderType Gender { get; set; }
+
+        public string NationalCode { get; set; }
+
+        public string BirthCertificateNumber { get; set; }
+
         public bool IsActive { get; set; }
+
         public DateTimeOffset LastLoginDate { get; set; }
 
         public ICollection<Address> Addresses { get; set; }
 
     }
 
-    public class UserConfiguration : IEntityTypeConfiguration<User>
-    {
-        public void Configure(EntityTypeBuilder<User> builder)
-        {
-            builder.Property(p => p.UserName).IsRequired().HasMaxLength(50);
-            /*builder.Property(p => p.FullName).HasMaxLength(100);*/
-        }
-    }
+    //public class UserConfiguration : IEntityTypeConfiguration<User>
+    //{
+    //    public void Configure(EntityTypeBuilder<User> builder)
+    //    {
+    //        builder.Property(p => p.UserName).IsRequired().HasMaxLength(50);
+    //        /*builder.Property(p => p.FullName).HasMaxLength(100);*/
+    //    }
+    //}
 
-    /*[JsonConverter(typeof(JsonStringEnumConverter))]
+    [JsonConverter(typeof(JsonStringEnumConverter))]
     public enum GenderType
     {
         [EnumMember(Value = "Female")]
@@ -51,5 +61,5 @@ namespace Entities.User
         [EnumMember(Value = "Male")]
         //[Display(Name = "آقا")]
         Male = 1
-    }*/
+    }
 }

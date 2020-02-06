@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Common.Exceptions;
+using Common.Utilities;
 using Data.Contracts;
 using Entities.User;
 using Microsoft.AspNetCore.Authorization;
@@ -12,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Extensions;
 using MyApi.Models;
 using Services.Services;
 using Services.Services.JWT;
@@ -21,7 +23,7 @@ using WebFramework.Filters;
 namespace MyApi.Controllers.v1
 {
     [ApiVersion("1")]
-    //[Authorize]
+    [Authorize(Roles = "Admin")]
     public class UserController : BaseController
     {
         private readonly IUserRepository _userRepository;
@@ -45,7 +47,6 @@ namespace MyApi.Controllers.v1
         }
 
         [HttpGet]
-        [Authorize(Roles = "Admin")]
         public async Task<ApiResult<List<UserSelectDto>>> Get(CancellationToken cancellationToken)
         {
             var usersList = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>(_mapper.ConfigurationProvider)
@@ -55,7 +56,6 @@ namespace MyApi.Controllers.v1
         }
 
         [HttpGet("{id:int}")]
-        [Authorize]
         public async Task<ApiResult<UserSelectDto>> Get(int id, CancellationToken cancellationToken)
         {
             var user = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>(_mapper.ConfigurationProvider)
@@ -87,7 +87,6 @@ namespace MyApi.Controllers.v1
         }
 
         [HttpPost]
-        [AllowAnonymous]
         public async Task<ApiResult<UserSelectDto>> Create(UserDto userDto, CancellationToken cancellationToken)
         {
             _logger.LogDebug("متد Create فراخوانی شد");
@@ -125,12 +124,13 @@ namespace MyApi.Controllers.v1
             return resultDto;
         }
 
-        [HttpPut]
+        [HttpPut("{id:int}")]
         public async Task<ApiResult<UserSelectDto>> Update(int id, UserDto userDto, CancellationToken cancellationToken)
         {
             var updateUser = await _userRepository.GetByIdAsync(cancellationToken, id);
 
             updateUser = userDto.ToEntity(_mapper, updateUser);
+            updateUser.Id = id;
 
             await _userRepository.UpdateAsync(updateUser, cancellationToken);
 

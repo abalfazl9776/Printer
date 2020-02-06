@@ -7,3 +7,4 @@ C:\Users\avhb2\source\repos\MyApi\WebApi\Common\obj\Debug\netcoreapp3.1\Common.A
 C:\Users\avhb2\source\repos\MyApi\WebApi\Common\obj\Debug\netcoreapp3.1\Common.AssemblyInfo.cs
 C:\Users\avhb2\source\repos\MyApi\WebApi\Common\obj\Debug\netcoreapp3.1\Common.dll
 C:\Users\avhb2\source\repos\MyApi\WebApi\Common\obj\Debug\netcoreapp3.1\Common.pdb
+C:\Users\avhb2\source\repos\MyApi\WebApi\Common\obj\Debug\netcoreapp3.1\Common.csprojAssemblyReference.cache

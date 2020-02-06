@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data.Repositories
 {
-    class DescriptionRepository : Repository<Description>, IDescriptionRepository
+    public class DescriptionRepository : Repository<Description>, IDescriptionRepository
     {
         public DescriptionRepository(ApplicationDbContext dbContext) 
             : base(dbContext)

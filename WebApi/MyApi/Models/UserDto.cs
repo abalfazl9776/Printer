@@ -6,6 +6,8 @@ using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 using AutoMapper;
 using Entities.User;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Newtonsoft.Json.Converters;
 using WebFramework.Api;
 using WebFramework.CustomMapping;
@@ -13,7 +15,7 @@ using ValidationContext = System.ComponentModel.DataAnnotations.ValidationContex
 
 namespace MyApi.Models
 {
-    public class UserDto : CustomDto<UserDto, User>, IValidatableObject
+    public class UserDto : CustomDto<UserDto, User>/*, IValidatableObject*/
     {
         [Required]
         [StringLength(100)]
@@ -27,25 +29,31 @@ namespace MyApi.Models
         [StringLength(100)]
         public string FullName { get; set; }*/
 
-        [Required]
-        [StringLength(100)]
         public string Email { get; set; }
 
         public string PhoneNumber { get; set; }
 
-        /*public DateTime BirthDate { get; set; }*/
+        public string FirstName { get; set; }
 
-        /*public GenderType Gender { get; set; }*/
+        public string LastName { get; set; }
 
-        public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-        {
-            if (UserName.Equals("test", StringComparison.OrdinalIgnoreCase))
-                yield return new ValidationResult("نام کاربری نمیتواند Test باشد", new[] { nameof(UserName) });
-            if (Password.Equals("123456"))
-                yield return new ValidationResult("رمز عبور نمیتواند 123456 باشد", new[] { nameof(Password) });
-            //if (Gender == GenderType.Male && (DateTime.Today.Year - BirthDate.Year) > 30)
-            //    yield return new ValidationResult("آقایان بیشتر از 30 سال معتبر نیستند", new[] { nameof(Gender), nameof(BirthDate) });
-        }
+        public DateTime BirthDate { get; set; }
+
+        public GenderType Gender { get; set; }
+
+        public string NationalCode { get; set; }
+
+        public string BirthCertificateNumber { get; set; }
+
+        //public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+        //{
+        //    if (UserName.Equals("test", StringComparison.OrdinalIgnoreCase))
+        //        yield return new ValidationResult("نام کاربری نمیتواند Test باشد", new[] { nameof(UserName) });
+        //    if (Password.Equals("123456"))
+        //        yield return new ValidationResult("رمز عبور نمیتواند 123456 باشد", new[] { nameof(Password) });
+        //    //if (Gender == GenderType.Male && (DateTime.Today.Year - BirthDate.Year) > 30)
+        //    //    yield return new ValidationResult("آقایان بیشتر از 30 سال معتبر نیستند", new[] { nameof(Gender), nameof(BirthDate) });
+        //}
         
     }
 
@@ -59,17 +67,29 @@ namespace MyApi.Models
         
         public string PhoneNumber { get; set; }
 
+        public string FirstName { get; set; }
+
+        public string LastName { get; set; }
+
+        public DateTime BirthDate { get; set; }
+
+        public GenderType Gender { get; set; }
+
+        public string NationalCode { get; set; }
+
+        public string BirthCertificateNumber { get; set; }
+
         /*public int Age { get; set; }*/
 
         // For describing enums as string.. but no needed!
         //[EnumDataType(typeof(GenderType))]
         /*public GenderType Gender { get; set; }*/
 
-        public override void CustomMappings(IMappingExpression<User, UserSelectDto> mapping)
+        /*public override void CustomMappings(IMappingExpression<User, UserSelectDto> mapping)
         {
-            /*mapping.ForMember(
+            mapping.ForMember(
                 dest => dest.Age,
-                config => config.MapFrom(src => (DateTime.Now.Year - src.BirthDate.Year)));*/
-        }
+                config => config.MapFrom(src => (DateTime.Now.Year - src.BirthDate.Year)));
+        }*/
     }
 }
