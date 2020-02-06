@@ -98,6 +98,7 @@ namespace MyApi
             {
                 endpoints.MapControllers()/*.RequireAuthorization()*/;
                 //config.MapDefaultControllerRoute(); // Map default route {controller=Home}/{action=Index}/{id?}
+                /*endpoints.MapDefaultControllerRoute();*/
             });
         }
     }

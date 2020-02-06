@@ -9,7 +9,7 @@ namespace MyApi.Models
 {
     public class NaturalPersonDto : BaseDto<NaturalPersonDto, NaturalPerson>
     {
-        /*public UserDto UserDto { get; set; }*/
+        public UserDto UserDto { get; set; }
 
         public string FirstName { get; set; }
 
@@ -20,7 +20,7 @@ namespace MyApi.Models
 
     public class NaturalPersonSelectDto : BaseDto<NaturalPersonSelectDto, NaturalPerson>
     {
-        /*public UserDto UserDto { get; set; }*/
+        public UserSelectDto UserSelectDto { get; set; }
 
         public string FirstName { get; set; }
 

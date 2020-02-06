@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using System.Runtime.Serialization;
 using System.Text;
+using System.Text.Json.Serialization;
 using Entities.Common;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -22,5 +24,25 @@ namespace Entities.User
         {
             builder.Property(p => p.Name).IsRequired().HasMaxLength(50);
         }
+    }
+
+    [JsonConverter(typeof(JsonStringEnumConverter))]
+    public enum PredefinedRoles
+    {
+        [EnumMember(Value = "Admin")]
+        //[Display(Name = "خانم")]
+        Admin = 0,
+
+        [EnumMember(Value = "NaturalPerson")]
+        //[Display(Name = "خانم")]
+        NaturalPerson = 1,
+
+        [EnumMember(Value = "AdvertisingCenter")]
+        //[Display(Name = "آقا")]
+        AdvertisingCenter = 2,
+
+        [EnumMember(Value = "PrintingHouse")]
+        //[Display(Name = "آقا")]
+        PrintingHouse = 3
     }
 }

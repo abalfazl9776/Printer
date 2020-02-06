@@ -3,7 +3,6 @@ C:\Users\avhb2\source\repos\MyApi\WebApi\Common\bin\Debug\netcoreapp3.1\Common.r
 C:\Users\avhb2\source\repos\MyApi\WebApi\Common\bin\Debug\netcoreapp3.1\Common.runtimeconfig.dev.json
 C:\Users\avhb2\source\repos\MyApi\WebApi\Common\bin\Debug\netcoreapp3.1\Common.dll
 C:\Users\avhb2\source\repos\MyApi\WebApi\Common\bin\Debug\netcoreapp3.1\Common.pdb
-C:\Users\avhb2\source\repos\MyApi\WebApi\Common\obj\Debug\netcoreapp3.1\Common.csprojAssemblyReference.cache
 C:\Users\avhb2\source\repos\MyApi\WebApi\Common\obj\Debug\netcoreapp3.1\Common.AssemblyInfoInputs.cache
 C:\Users\avhb2\source\repos\MyApi\WebApi\Common\obj\Debug\netcoreapp3.1\Common.AssemblyInfo.cs
 C:\Users\avhb2\source\repos\MyApi\WebApi\Common\obj\Debug\netcoreapp3.1\Common.dll

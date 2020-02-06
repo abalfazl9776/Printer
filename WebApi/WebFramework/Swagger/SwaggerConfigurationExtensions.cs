@@ -81,8 +81,8 @@ namespace WebFramework.Swagger
                 options.SwaggerDoc("v1", new OpenApiInfo
                 {
                     Version = "v1",
-                    Title = "API V1",
-                    Description = "A ASP.NET Core 3.0 Web API",
+                    Title = "Printer",
+                    Description = "An ASP.NET Core 3.1 Web API",
                     Contact = new OpenApiContact
                     {
                         Name = "Abolfazl Vayani",
@@ -96,7 +96,7 @@ namespace WebFramework.Swagger
                         Url = new Uri("https://abalfazl9776.github.io"),
                     }*/
                 });
-                options.SwaggerDoc("v2", new OpenApiInfo { Version = "v2", Title = "API V2" });
+                /*options.SwaggerDoc("v2", new OpenApiInfo { Version = "v2", Title = "API V2" });*/
 
                 #region Filters
                 ////Enable to use [SwaggerRequestExample] & [SwaggerResponseExample]
@@ -254,7 +254,7 @@ namespace WebFramework.Swagger
                 #endregion
 
                 options.SwaggerEndpoint("/swagger/v1/swagger.json", "V1 Docs");
-                options.SwaggerEndpoint("/swagger/v2/swagger.json", "V2 Docs");
+                /*options.SwaggerEndpoint("/swagger/v2/swagger.json", "V2 Docs");*/
                 options.RoutePrefix = string.Empty;
 
                 options.OAuthClientId("swagger");

@@ -110,6 +110,7 @@ namespace MyApi.Controllers.v1
 
             //return Ok(userDto);
 
+
             var user = userDto.ToEntity(_mapper);
 
             await _userManager.CreateAsync(user, userDto.Password);

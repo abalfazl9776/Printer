@@ -18,7 +18,13 @@ namespace Data.Repositories
         {
         }
 
-        public Task<User> GetByUserAndPass(string username, string password, CancellationToken cancellationToken)
+        [Obsolete]
+        public User GetByUser(string username)
+        {
+            return Table.Single(p => p.UserName == username);
+        }
+
+        public Task<User> GetByUserAndPassAsync(string username, string password, CancellationToken cancellationToken)
         {
             var passwordHash = SecurityHelper.GetSha256Hash(password);
             return Table.Where(p => p.UserName == username && p.PasswordHash == passwordHash).SingleOrDefaultAsync(cancellationToken);
