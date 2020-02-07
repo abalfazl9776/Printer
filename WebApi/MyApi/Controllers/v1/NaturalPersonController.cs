@@ -33,6 +33,23 @@ namespace MyApi.Controllers.v1
             _userRepository = userRepository;
         }
 
+        [HttpGet("{id}")]
+        public override async Task<ApiResult<NaturalPersonSelectDto>> Get(int id, CancellationToken cancellationToken)
+        {
+            var dto = await Repository.TableNoTracking.ProjectTo<NaturalPersonSelectDto>(Mapper.ConfigurationProvider)
+                .SingleOrDefaultAsync(p => p.Id.Equals(id), cancellationToken);
+
+            if (dto == null)
+                return NotFound();
+
+            var user = await _userRepository.GetByIdAsync(cancellationToken, dto.UserId);
+            var userSelectDto = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>(Mapper.ConfigurationProvider)
+                .SingleOrDefaultAsync(p => p.Id.Equals(user.Id), cancellationToken);
+            dto.UserSelectDto = userSelectDto;
+
+            return dto;
+        }
+
         [HttpPost]
         [AllowAnonymous]
         public override async Task<ApiResult<NaturalPersonSelectDto>> Create(NaturalPersonDto dto, CancellationToken cancellationToken)
@@ -60,27 +77,16 @@ namespace MyApi.Controllers.v1
         }
         /*
         [HttpGet]
-        public virtual async Task<ActionResult<List<TSelectDto>>> Get(CancellationToken cancellationToken)
+        public virtual async Task<ActionResult<List<NaturalPersonSelectDto>>> Get(CancellationToken cancellationToken)
         {
-            var list = await Repository.TableNoTracking.ProjectTo<TSelectDto>(Mapper.ConfigurationProvider)
+            var list = await Repository.TableNoTracking.ProjectTo<NaturalPersonSelectDto>(Mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
             return Ok(list);
         }
+        */
 
-        [HttpGet("{id:guid}")]
-        public virtual async Task<ApiResult<TSelectDto>> Get(TKey id, CancellationToken cancellationToken)
-        {
-            var dto = await Repository.TableNoTracking.ProjectTo<TSelectDto>(Mapper.ConfigurationProvider)
-                .SingleOrDefaultAsync(p => p.Id.Equals(id), cancellationToken);
-
-            if (dto == null)
-                return NotFound();
-
-            return dto;
-        }*/
-
-        [HttpPut("{id:int}")]
+        [HttpPut("{id}")]
         public override async Task<ApiResult<NaturalPersonSelectDto>> Update(int id, NaturalPersonDto dto, 
             CancellationToken cancellationToken)
         {

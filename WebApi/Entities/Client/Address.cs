@@ -15,6 +15,7 @@ namespace Entities.Client
         public string Unit { get; set; }
         public string Zip { get; set; }
         public string Phone { get; set; }
+        public string FullAddress { get; set; }
 
         public User.User User { get; set; }
     }

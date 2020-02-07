@@ -5,9 +5,10 @@ namespace Entities.PrintingHouse
 {
     public class PrintingHouseWallet : BaseEntity
     {
-        public double Cash { get; set; }
+        //International Bank Account Number (Sheba)
+        public string Iban { get; set; }
 
-        [ForeignKey(nameof(Entities.PrintingHouse.PrintingHouse)+nameof(Entities.PrintingHouse.PrintingHouse.Id))]
+        [ForeignKey("PrintingHouseId")]
         public PrintingHouse PrintingHouse { get; set; }
     }
 }

@@ -17,11 +17,16 @@ namespace MyApi.Models
     {
         [Required]
         public UserDto UserDto { get; set; }
+
+        public int UserId { get; set; }
+
     }
 
     public class NaturalPersonSelectDto : BaseDto<NaturalPersonSelectDto, NaturalPerson>
     {
         public UserSelectDto UserSelectDto { get; set; }
+        
+        public int UserId { get; set; }
 
     }
 }

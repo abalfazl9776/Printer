@@ -8,7 +8,9 @@ namespace Entities.PrintingHouse
     {
         public string Name { get; set; }
 
-        public long LicenseNumber { get; set; }
+        public string DocumentsUrl { get; set; }
+
+        public int PrintingHouseWalletId { get; set; }
 
         public PrintingHouseWallet Wallet { get; set; }
 

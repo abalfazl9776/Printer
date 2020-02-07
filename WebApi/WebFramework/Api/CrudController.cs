@@ -40,7 +40,7 @@ namespace WebFramework.Api
             return Ok(list);
         }
 
-        [HttpGet("{id:guid}")]
+        [HttpGet("{id}")]
         public virtual async Task<ApiResult<TSelectDto>> Get(TKey id, CancellationToken cancellationToken)
         {
             var dto = await Repository.TableNoTracking.ProjectTo<TSelectDto>(Mapper.ConfigurationProvider)
@@ -65,7 +65,7 @@ namespace WebFramework.Api
             return resultDto;
         }
 
-        [HttpPut]
+        [HttpPut("{id}")]
         public virtual async Task<ApiResult<TSelectDto>> Update(TKey id, TDto dto, CancellationToken cancellationToken)
         {
             var model = await Repository.GetByIdAsync(cancellationToken, id);
@@ -81,7 +81,7 @@ namespace WebFramework.Api
             return resultDto;
         }
 
-        [HttpDelete("{id:guid}")]
+        [HttpDelete("{id}")]
         public virtual async Task<ApiResult> Delete(TKey id, CancellationToken cancellationToken)
         {
             var model = await Repository.GetByIdAsync(cancellationToken, id);
