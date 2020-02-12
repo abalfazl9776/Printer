@@ -7,6 +7,17 @@ namespace Entities.Order
 {
     public class Order : BaseEntity
     {
+        public DateTime DateTime { get; set; }
+
+        public long TotalPrice { get; set; }
+
+
+
+        public int CustomerId { get; set; }
+        public int PrintingHouseId { get; set; }
+        public int PaymentId { get; set; }
+
+
         public Customer.Customer Customer { get; set; }
 
         public PrintingHouse.PrintingHouse PrintingHouse { get; set; }

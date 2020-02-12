@@ -8,9 +8,11 @@ using Entities.Common;
 
 namespace Entities.Service
 {
-    public class Attributes : BaseEntity
+    public class Attribute : BaseEntity
     {
         public string Name { get; set; }
+
+        public string Value { get; set; }
 
         public string DataType { get; set; }
 

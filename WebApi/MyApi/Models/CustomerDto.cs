@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 using Entities.Client;
-using Entities.Customer.NaturalPerson;
+using Entities.Customer;
 using Entities.User;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
@@ -13,7 +13,7 @@ using WebFramework.Api;
 
 namespace MyApi.Models
 {
-    public class NaturalPersonDto : BaseDto<NaturalPersonDto, NaturalPerson>
+    public class CustomerDto : BaseDto<CustomerDto, Customer>
     {
         [Required]
         public UserDto UserDto { get; set; }
@@ -22,7 +22,7 @@ namespace MyApi.Models
 
     }
 
-    public class NaturalPersonSelectDto : BaseDto<NaturalPersonSelectDto, NaturalPerson>
+    public class CustomerSelectDto : BaseDto<CustomerSelectDto, Customer>
     {
         public UserSelectDto UserSelectDto { get; set; }
         

@@ -37,12 +37,12 @@ namespace Services.DataInitializer
                 };
                 var result = _roleManager.CreateAsync(role).GetAwaiter().GetResult();
             }
-            if (!_roleManager.Roles.AsNoTracking().Any(p => p.Name.Equals(PredefinedRoles.NaturalPerson.ToString())))
+            if (!_roleManager.Roles.AsNoTracking().Any(p => p.Name.Equals(PredefinedRoles.Customer.ToString())))
             {
                 var role = new Role
                 {
-                    Name = PredefinedRoles.NaturalPerson.ToString(),
-                    Description = "Natural person is a customer type (also a client)."
+                    Name = PredefinedRoles.Customer.ToString(),
+                    Description = "Meaning of Customer is 'Natural Person' that is a basic customer type (also a client)."
                 };
                 var result = _roleManager.CreateAsync(role).GetAwaiter().GetResult();
             }

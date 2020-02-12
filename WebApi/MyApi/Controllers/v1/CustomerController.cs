@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Data.Contracts;
-using Entities.Customer.NaturalPerson;
+using Entities.Customer;
 using Entities.User;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
@@ -20,12 +20,12 @@ using WebFramework.Filters;
 namespace MyApi.Controllers.v1
 {
     [ApiVersion("1")]
-    public class NaturalPersonController : CrudController<NaturalPersonDto, NaturalPersonSelectDto, NaturalPerson>
+    public class CustomerController : CrudController<CustomerDto, CustomerSelectDto, Customer>
     {
         private readonly IUserRepository _userRepository;
         private readonly UserManager<User> _userManager;
 
-        public NaturalPersonController(IRepository<NaturalPerson> repository, IUserRepository userRepository,
+        public CustomerController(IRepository<Customer> repository, IUserRepository userRepository,
             UserManager<User> userManager, IMapper mapper) 
             : base(repository, mapper)
         {
@@ -34,9 +34,9 @@ namespace MyApi.Controllers.v1
         }
 
         [HttpGet("{id}")]
-        public override async Task<ApiResult<NaturalPersonSelectDto>> Get(int id, CancellationToken cancellationToken)
+        public override async Task<ApiResult<CustomerSelectDto>> Get(int id, CancellationToken cancellationToken)
         {
-            var dto = await Repository.TableNoTracking.ProjectTo<NaturalPersonSelectDto>(Mapper.ConfigurationProvider)
+            var dto = await Repository.TableNoTracking.ProjectTo<CustomerSelectDto>(Mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync(p => p.Id.Equals(id), cancellationToken);
 
             if (dto == null)
@@ -52,7 +52,7 @@ namespace MyApi.Controllers.v1
 
         [HttpPost]
         [AllowAnonymous]
-        public override async Task<ApiResult<NaturalPersonSelectDto>> Create(NaturalPersonDto dto, CancellationToken cancellationToken)
+        public override async Task<ApiResult<CustomerSelectDto>> Create(CustomerDto dto, CancellationToken cancellationToken)
         {
             dto.UserDto.PhoneNumber = dto.UserDto.UserName;
             dto.UserDto.Email = "np"+dto.UserDto.PhoneNumber+"@printer.ir";
@@ -60,26 +60,26 @@ namespace MyApi.Controllers.v1
             var addUser = await _userManager.CreateAsync(user, dto.UserDto.Password);
 
             user = await _userManager.FindByNameAsync(user.UserName);
-            var addToRole = await _userManager.AddToRoleAsync(user, PredefinedRoles.NaturalPerson.ToString());
+            var addToRole = await _userManager.AddToRoleAsync(user, PredefinedRoles.Customer.ToString());
             
             var userSelectDto = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>(Mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync(p => p.Id.Equals(user.Id), cancellationToken);
 
-            var naturalPerson = dto.ToEntity(Mapper);
-            naturalPerson.User = user;
-            await Repository.AddAsync(naturalPerson, cancellationToken);
+            var customer = dto.ToEntity(Mapper);
+            customer.User = user;
+            await Repository.AddAsync(customer, cancellationToken);
 
-            var resultDto = await Repository.TableNoTracking.ProjectTo<NaturalPersonSelectDto>(Mapper.ConfigurationProvider).
-                SingleOrDefaultAsync(p => p.Id.Equals(naturalPerson.Id), cancellationToken);
+            var resultDto = await Repository.TableNoTracking.ProjectTo<CustomerSelectDto>(Mapper.ConfigurationProvider).
+                SingleOrDefaultAsync(p => p.Id.Equals(customer.Id), cancellationToken);
 
             resultDto.UserSelectDto = userSelectDto;
             return resultDto;
         }
         /*
         [HttpGet]
-        public virtual async Task<ActionResult<List<NaturalPersonSelectDto>>> Get(CancellationToken cancellationToken)
+        public virtual async Task<ActionResult<List<CustomerSelectDto>>> Get(CancellationToken cancellationToken)
         {
-            var list = await Repository.TableNoTracking.ProjectTo<NaturalPersonSelectDto>(Mapper.ConfigurationProvider)
+            var list = await Repository.TableNoTracking.ProjectTo<CustomerSelectDto>(Mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 
             return Ok(list);
@@ -87,26 +87,26 @@ namespace MyApi.Controllers.v1
         */
 
         [HttpPut("{id}")]
-        public override async Task<ApiResult<NaturalPersonSelectDto>> Update(int id, NaturalPersonDto dto, 
+        public override async Task<ApiResult<CustomerSelectDto>> Update(int id, CustomerDto dto, 
             CancellationToken cancellationToken)
         {
-            var naturalPerson = await Repository.GetByIdAsync(cancellationToken, id);
-            var user = await _userRepository.GetByIdAsync(cancellationToken, naturalPerson.UserId);
+            var customer = await Repository.GetByIdAsync(cancellationToken, id);
+            var user = await _userRepository.GetByIdAsync(cancellationToken, customer.UserId);
 
             user = dto.UserDto.ToEntity(Mapper, user);
-            user.Id = naturalPerson.UserId;
-            naturalPerson = dto.ToEntity(Mapper, naturalPerson);
-            naturalPerson.Id = id;
-            naturalPerson.UserId = user.Id;
+            user.Id = customer.UserId;
+            customer = dto.ToEntity(Mapper, customer);
+            customer.Id = id;
+            customer.UserId = user.Id;
 
             await _userRepository.UpdateAsync(user, cancellationToken);
-            await Repository.UpdateAsync(naturalPerson, cancellationToken);
+            await Repository.UpdateAsync(customer, cancellationToken);
 
             var userSelectDto = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>(Mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync(p => p.Id.Equals(user.Id), cancellationToken);
 
-            var resultDto = await Repository.TableNoTracking.ProjectTo<NaturalPersonSelectDto>(Mapper.ConfigurationProvider)
-                .SingleOrDefaultAsync(p => p.Id.Equals(naturalPerson.Id), cancellationToken);
+            var resultDto = await Repository.TableNoTracking.ProjectTo<CustomerSelectDto>(Mapper.ConfigurationProvider)
+                .SingleOrDefaultAsync(p => p.Id.Equals(customer.Id), cancellationToken);
 
             resultDto.UserSelectDto = userSelectDto;
             return resultDto;

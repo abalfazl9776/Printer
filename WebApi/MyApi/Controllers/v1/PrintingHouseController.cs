@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using AutoMapper;
 using AutoMapper.QueryableExtensions;
 using Data.Contracts;
-using Entities.Customer.NaturalPerson;
 using Entities.PrintingHouse;
 using Entities.User;
 using Microsoft.AspNetCore.Authorization;

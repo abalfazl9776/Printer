@@ -10,10 +10,10 @@ namespace Entities.Service
 {
     public class Description : BaseEntity
     {
-        public List<ImageUrl> ImageUrlsList { get; set; }
-
         public string DescriptionText { get; set; }
         
+        public ICollection<ImageUrl> ImageUrls { get; set; }
+
         [ForeignKey("CategoryId")]
         public Category Category { get; set; }
 

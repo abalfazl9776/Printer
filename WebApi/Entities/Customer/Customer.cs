@@ -5,8 +5,12 @@ using Entities.Common;
 
 namespace Entities.Customer
 {
-    public abstract class Customer : Client.Client
+    public class Customer : Client.Client
     {
+        public int  test { get; set; }
+
+        public string Discriminator { get; set; }
+
     }
     
 }

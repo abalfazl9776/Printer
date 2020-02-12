@@ -7,5 +7,6 @@ namespace Entities.Order
 {
     public class OrderLine : BaseEntity
     {
+
     }
 }
