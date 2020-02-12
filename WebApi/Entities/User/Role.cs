@@ -33,9 +33,9 @@ namespace Entities.User
         //[Display(Name = "خانم")]
         Admin = 0,
 
-        [EnumMember(Value = "Customer")]
+        [EnumMember(Value = "NaturalPerson")]
         //[Display(Name = "خانم")]
-        Customer = 1,
+        NaturalPerson = 1,
 
         [EnumMember(Value = "AdvertisingCenter")]
         //[Display(Name = "آقا")]

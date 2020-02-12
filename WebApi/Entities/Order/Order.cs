@@ -12,7 +12,6 @@ namespace Entities.Order
         public long TotalPrice { get; set; }
 
 
-
         public int CustomerId { get; set; }
         public int PrintingHouseId { get; set; }
         public int PaymentId { get; set; }

@@ -2,15 +2,17 @@
 using System.ComponentModel.DataAnnotations.Schema;
 using Entities.Client;
 using Entities.Common;
+using Entities.User;
 
 namespace Entities.Customer
 {
     public class Customer : Client.Client
     {
-        public int  test { get; set; }
+        public string AcName { get; set; }
 
-        public string Discriminator { get; set; }
+        public long AcLicenseNumber { get; set; }
 
+        public PredefinedRoles DiscriminatorRole { get; set; }
     }
     
 }
