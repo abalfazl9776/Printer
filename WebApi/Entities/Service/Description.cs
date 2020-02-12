@@ -14,7 +14,7 @@ namespace Entities.Service
 
         public string DescriptionText { get; set; }
         
-        [ForeignKey(nameof(Entities.Service.Category)+nameof(Entities.Service.Category.Id))]
+        [ForeignKey("CategoryId")]
         public Category Category { get; set; }
 
     }

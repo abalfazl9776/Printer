@@ -14,9 +14,11 @@ namespace Entities.Service
     {
         public string Name { get; set; }
 
+        public int AttributesId { get; set; }
         public int ServiceId { get; set; }
         public int DescriptionId { get; set; }
 
+        public Attributes Attributes { get; set; }
 
         public Service Service { get; set; }
 
