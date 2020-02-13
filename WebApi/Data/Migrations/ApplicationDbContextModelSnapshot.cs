@@ -138,10 +138,20 @@ namespace Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("OrderId")
+                    b.Property<int>("AttributeId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("OrderId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AttributeId");
+
+                    b.HasIndex("CategoryId");
 
                     b.HasIndex("OrderId");
 
@@ -215,24 +225,19 @@ namespace Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int?>("CategoryId")
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("Quantity")
                         .HasColumnType("int");
 
-                    b.Property<string>("DataType")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<bool>("Modifiable")
+                    b.Property<bool>("RoundedCorners")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Name")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Value")
+                    b.Property<string>("Size")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("CategoryId");
 
                     b.ToTable("Attributes");
                 });
@@ -591,9 +596,23 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entities.Order.OrderLine", b =>
                 {
+                    b.HasOne("Entities.Service.Attribute", "Attribute")
+                        .WithMany()
+                        .HasForeignKey("AttributeId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Service.Category", "Category")
+                        .WithMany()
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Entities.Order.Order", null)
                         .WithMany("OrderLines")
-                        .HasForeignKey("OrderId");
+                        .HasForeignKey("OrderId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entities.PrintingHouse.PrintingHouse", b =>
@@ -610,13 +629,6 @@ namespace Data.Migrations
                     b.HasOne("Entities.PrintingHouse.PrintingHouse", "PrintingHouse")
                         .WithOne("Wallet")
                         .HasForeignKey("Entities.PrintingHouse.PrintingHouseWallet", "PrintingHouseId");
-                });
-
-            modelBuilder.Entity("Entities.Service.Attribute", b =>
-                {
-                    b.HasOne("Entities.Service.Category", null)
-                        .WithMany("Attributes")
-                        .HasForeignKey("CategoryId");
                 });
 
             modelBuilder.Entity("Entities.Service.Category", b =>

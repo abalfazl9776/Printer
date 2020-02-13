@@ -18,7 +18,12 @@ namespace MyApi.Models
         [Required]
         public UserDto UserDto { get; set; }
 
-        public int UserId { get; set; }
+        public string AcName { get; set; }
+
+        public long AcLicenseNumber { get; set; }
+
+        [Required]
+        public PredefinedRoles DiscriminatorRole { get; set; }
 
     }
 
@@ -27,6 +32,12 @@ namespace MyApi.Models
         public UserSelectDto UserSelectDto { get; set; }
         
         public int UserId { get; set; }
+
+        public string AcName { get; set; }
+
+        public long AcLicenseNumber { get; set; }
+
+        public PredefinedRoles DiscriminatorRole { get; set; }
 
     }
 }

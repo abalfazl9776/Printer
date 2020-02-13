@@ -23,6 +23,6 @@ namespace Entities.Order
 
         public Payment Payment { get; set; }
 
-        public List<OrderLine> OrderLines { get; set; }
+        public ICollection<OrderLine> OrderLines { get; set; }
     }
 }
