@@ -10,5 +10,6 @@ namespace MyApi.Controllers.v1
     [ApiVersion("1")]
     public class PriceController : BaseController
     {
+
     }
 }

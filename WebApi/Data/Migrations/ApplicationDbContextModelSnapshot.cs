@@ -117,8 +117,8 @@ namespace Data.Migrations
                     b.Property<int>("PrintingHouseId")
                         .HasColumnType("int");
 
-                    b.Property<long>("TotalPrice")
-                        .HasColumnType("bigint");
+                    b.Property<double>("TotalPrice")
+                        .HasColumnType("float");
 
                     b.HasKey("Id");
 
@@ -147,6 +147,9 @@ namespace Data.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
+                    b.Property<int>("PriceId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("AttributeId");
@@ -154,6 +157,8 @@ namespace Data.Migrations
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("OrderId");
+
+                    b.HasIndex("PriceId");
 
                     b.ToTable("OrderLines");
                 });
@@ -164,6 +169,12 @@ namespace Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<bool>("IsPayed")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime>("PaymentDate")
+                        .HasColumnType("datetime2");
 
                     b.HasKey("Id");
 
@@ -267,6 +278,43 @@ namespace Data.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("Entities.Service.CategoryBasePrice", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PrintingHouseId")
+                        .HasColumnType("int");
+
+                    b.Property<double>("CategoryPrice")
+                        .HasColumnType("float");
+
+                    b.HasKey("CategoryId", "PrintingHouseId");
+
+                    b.ToTable("CategoryBasePrices");
+                });
+
+            modelBuilder.Entity("Entities.Service.ColorBasePrice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Color")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("ColorPer")
+                        .HasColumnType("float");
+
+                    b.Property<int>("PrintingHouseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ColorBasePrices");
+                });
+
             modelBuilder.Entity("Entities.Service.Description", b =>
                 {
                     b.Property<int>("Id")
@@ -313,6 +361,97 @@ namespace Data.Migrations
                     b.ToTable("ImageUrls");
                 });
 
+            modelBuilder.Entity("Entities.Service.Price", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CategoryBasePriceCategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryBasePriceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryBasePricePrintingHouseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ColorBasePriceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PrintingHouseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("QuantityBasePriceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("RoundedCornerBasePriceId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("SizeBasePriceId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ColorBasePriceId");
+
+                    b.HasIndex("QuantityBasePriceId");
+
+                    b.HasIndex("RoundedCornerBasePriceId");
+
+                    b.HasIndex("SizeBasePriceId");
+
+                    b.HasIndex("CategoryBasePriceCategoryId", "CategoryBasePricePrintingHouseId");
+
+                    b.ToTable("Prices");
+                });
+
+            modelBuilder.Entity("Entities.Service.QuantityBasePrice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("PrintingHouseId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<double>("QuantityPer")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("QuantityBasePrices");
+                });
+
+            modelBuilder.Entity("Entities.Service.RoundedCornerBasePrice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("PrintingHouseId")
+                        .HasColumnType("int");
+
+                    b.Property<bool>("RoundedCorner")
+                        .HasColumnType("bit");
+
+                    b.Property<double>("RoundedCornerPer")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RoundedCornerBasePrices");
+                });
+
             modelBuilder.Entity("Entities.Service.Service", b =>
                 {
                     b.Property<int>("Id")
@@ -328,6 +467,27 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Services");
+                });
+
+            modelBuilder.Entity("Entities.Service.SizeBasePrice", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("PrintingHouseId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Size")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("SizePer")
+                        .HasColumnType("float");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("SizeBasePrices");
                 });
 
             modelBuilder.Entity("Entities.User.Role", b =>
@@ -613,6 +773,12 @@ namespace Data.Migrations
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
+
+                    b.HasOne("Entities.Service.Price", "Price")
+                        .WithMany()
+                        .HasForeignKey("PriceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entities.PrintingHouse.PrintingHouse", b =>
@@ -652,6 +818,39 @@ namespace Data.Migrations
                     b.HasOne("Entities.Service.Description", null)
                         .WithMany("ImageUrls")
                         .HasForeignKey("DescriptionId");
+                });
+
+            modelBuilder.Entity("Entities.Service.Price", b =>
+                {
+                    b.HasOne("Entities.Service.ColorBasePrice", "ColorBasePrice")
+                        .WithMany()
+                        .HasForeignKey("ColorBasePriceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Service.QuantityBasePrice", "QuantityBasePrice")
+                        .WithMany()
+                        .HasForeignKey("QuantityBasePriceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Service.RoundedCornerBasePrice", "RoundedCornerBasePrice")
+                        .WithMany()
+                        .HasForeignKey("RoundedCornerBasePriceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Service.SizeBasePrice", "SizeBasePrice")
+                        .WithMany()
+                        .HasForeignKey("SizeBasePriceId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("Entities.Service.CategoryBasePrice", "CategoryBasePrice")
+                        .WithMany()
+                        .HasForeignKey("CategoryBasePriceCategoryId", "CategoryBasePricePrintingHouseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>

@@ -9,8 +9,7 @@ namespace Entities.Order
     {
         public DateTime DateTime { get; set; }
 
-        public long TotalPrice { get; set; }
-
+        public double TotalPrice { get; set; }
 
         public int CustomerId { get; set; }
         public int PrintingHouseId { get; set; }
@@ -18,9 +17,7 @@ namespace Entities.Order
 
 
         public Customer.Customer Customer { get; set; }
-
         public PrintingHouse.PrintingHouse PrintingHouse { get; set; }
-
         public Payment Payment { get; set; }
 
         public ICollection<OrderLine> OrderLines { get; set; }
