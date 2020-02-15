@@ -114,9 +114,6 @@ namespace Data.Migrations
                     b.Property<int>("PaymentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PrintingHouseId")
-                        .HasColumnType("int");
-
                     b.Property<double>("TotalPrice")
                         .HasColumnType("float");
 
@@ -125,8 +122,6 @@ namespace Data.Migrations
                     b.HasIndex("CustomerId");
 
                     b.HasIndex("PaymentId");
-
-                    b.HasIndex("PrintingHouseId");
 
                     b.ToTable("Orders");
                 });
@@ -147,7 +142,7 @@ namespace Data.Migrations
                     b.Property<int>("OrderId")
                         .HasColumnType("int");
 
-                    b.Property<int>("PriceId")
+                    b.Property<int>("PrintingHouseId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
@@ -158,7 +153,7 @@ namespace Data.Migrations
 
                     b.HasIndex("OrderId");
 
-                    b.HasIndex("PriceId");
+                    b.HasIndex("PrintingHouseId");
 
                     b.ToTable("OrderLines");
                 });
@@ -746,12 +741,6 @@ namespace Data.Migrations
                         .HasForeignKey("PaymentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("Entities.PrintingHouse.PrintingHouse", "PrintingHouse")
-                        .WithMany()
-                        .HasForeignKey("PrintingHouseId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
                 });
 
             modelBuilder.Entity("Entities.Order.OrderLine", b =>
@@ -768,15 +757,15 @@ namespace Data.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Entities.Order.Order", null)
+                    b.HasOne("Entities.Order.Order", "Order")
                         .WithMany("OrderLines")
                         .HasForeignKey("OrderId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Entities.Service.Price", "Price")
+                    b.HasOne("Entities.PrintingHouse.PrintingHouse", "PrintingHouse")
                         .WithMany()
-                        .HasForeignKey("PriceId")
+                        .HasForeignKey("PrintingHouseId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

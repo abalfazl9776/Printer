@@ -20,7 +20,7 @@ namespace Data.Repositories
         public Task<Description> GetDescription(Category category, CancellationToken cancellationToken)
         {
             return Table.Where(p => p.Category.Id.Equals(category.Id))
-                .SingleOrDefaultAsync(cancellationToken);
+                /*.Include(a => a.Category)*/.SingleOrDefaultAsync(cancellationToken);
         }
 
     }

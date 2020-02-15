@@ -29,7 +29,7 @@ namespace MyApi.Models
 
     public class CustomerSelectDto : BaseDto<CustomerSelectDto, Customer>
     {
-        public UserSelectDto UserSelectDto { get; set; }
+        public UserSelectDto User { get; set; }
         
         public int UserId { get; set; }
 

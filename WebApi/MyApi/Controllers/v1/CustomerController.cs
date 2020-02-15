@@ -33,7 +33,7 @@ namespace MyApi.Controllers.v1
             _userRepository = userRepository;
         }
 
-        [HttpGet("{id}")]
+        /*[HttpGet("{id}")]
         public override async Task<ApiResult<CustomerSelectDto>> Get(int id, CancellationToken cancellationToken)
         {
             var dto = await Repository.TableNoTracking.ProjectTo<CustomerSelectDto>(Mapper.ConfigurationProvider)
@@ -48,7 +48,7 @@ namespace MyApi.Controllers.v1
             dto.UserSelectDto = userSelectDto;
 
             return dto;
-        }
+        }*/
 
         [HttpPost]
         [AllowAnonymous]
@@ -69,10 +69,11 @@ namespace MyApi.Controllers.v1
             customer.User = user;
             await Repository.AddAsync(customer, cancellationToken);
 
-            var resultDto = await Repository.TableNoTracking.ProjectTo<CustomerSelectDto>(Mapper.ConfigurationProvider).
-                SingleOrDefaultAsync(p => p.Id.Equals(customer.Id), cancellationToken);
+            var resultDto = await Repository.TableNoTracking.Include(c => c.User)
+                .ProjectTo<CustomerSelectDto>(Mapper.ConfigurationProvider)
+                .SingleOrDefaultAsync(p => p.Id.Equals(customer.Id), cancellationToken);
 
-            resultDto.UserSelectDto = userSelectDto;
+            //resultDto.UserSelectDto = userSelectDto;
             return resultDto;
         }
         /*
@@ -86,7 +87,7 @@ namespace MyApi.Controllers.v1
         }
         */
 
-        [HttpPut("{id}")]
+        /*[HttpPut("{id}")]
         public override async Task<ApiResult<CustomerSelectDto>> Update(int id, CustomerDto dto, 
             CancellationToken cancellationToken)
         {
@@ -110,7 +111,7 @@ namespace MyApi.Controllers.v1
 
             resultDto.UserSelectDto = userSelectDto;
             return resultDto;
-        }
+        }*/
         /*
         [HttpDelete("{id:guid}")]
         public virtual async Task<ApiResult> Delete(TKey id, CancellationToken cancellationToken)

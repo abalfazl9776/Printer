@@ -4,6 +4,7 @@ using Entities;
 using System.ComponentModel.DataAnnotations;
 using Entities.Common;
 using Microsoft.AspNetCore.Identity;
+using Newtonsoft.Json;
 using WebFramework.CustomMapping;
 
 namespace WebFramework.Api
@@ -12,6 +13,7 @@ namespace WebFramework.Api
         where TDto : class, new()
         where TEntity : BaseEntity<TKey>, new()
     {
+        [JsonIgnore]
         public TKey Id { get; set; }
 
         public TEntity ToEntity(IMapper mapper)
