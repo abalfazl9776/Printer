@@ -18,25 +18,23 @@ namespace MyApi.Models
         public string Name { get; set; }
 
         public string DocumentsUrl { get; set; }
-
-        public int PrintingHouseWalletId { get; set; }
         
         public string Iban { get; set; }
+
+        public double Cash { get; set; }
 
     }
 
     public class PrintingHouseSelectDto : BaseDto<PrintingHouseSelectDto, PrintingHouse>
     {
-        public UserSelectDto UserSelectDto { get; set; }
+        public UserSelectDto User { get; set; }
+
+        public PrintingHouseWallet  PrintingHouseWallet  { get; set; }
         
         public int UserId { get; set; }
         
         public string Name { get; set; }
 
         public string DocumentsUrl { get; set; }
-
-        public int PrintingHouseWalletId { get; set; }
-
-        public string Iban { get; set; }
     }
 }

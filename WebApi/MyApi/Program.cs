@@ -48,6 +48,7 @@ namespace MyApi
                 {
                     webHostBuilder
                         .UseContentRoot(Directory.GetCurrentDirectory())
+                        .UseUrls("https://0.0.0.0:44340")
                         .UseIISIntegration()
                         .UseStartup<Startup>();
                 })

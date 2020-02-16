@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using Entities.Common;
+using Entities.Service;
 
 namespace Entities.PrintingHouse
 {
@@ -14,5 +15,6 @@ namespace Entities.PrintingHouse
 
         public PrintingHouseWallet Wallet { get; set; }
 
+        public ICollection<ServiceMapping> ServiceMappings{ get; set; }
     }
 }

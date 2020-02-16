@@ -64,7 +64,7 @@ namespace Services.Services.JWT
             var result = await _signInManager.ClaimsFactory.CreateAsync(user);
             //add custom claims
             var list = new List<Claim>(result.Claims);
-            list.Add(new Claim(ClaimTypes.MobilePhone, user.PhoneNumber));
+            //list.Add(new Claim(ClaimTypes.MobilePhone, user.PhoneNumber));
 
             //JwtRegisteredClaimNames.Sub
             //var securityStampClaimType = new ClaimsIdentityOptions().SecurityStampClaimType;

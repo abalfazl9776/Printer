@@ -8,7 +8,6 @@ namespace Entities.PrintingHouse
         //International Bank Account Number (Sheba)
         public string Iban { get; set; }
 
-        [ForeignKey("PrintingHouseId")]
-        public PrintingHouse PrintingHouse { get; set; }
+        public double Cash { get; set; }
     }
 }

@@ -44,6 +44,7 @@ namespace MyApi
             services.AddCustomIdentity(_siteSetting.IdentitySettings);
 
             //services.AddIs4Authentication(Configuration);
+            services.AddCors();
 
             //services.AddCors(options =>
             //{
@@ -88,7 +89,7 @@ namespace MyApi
 
             app.UseRouting();
 
-            //app.UseCors("default");
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseAuthentication();
 

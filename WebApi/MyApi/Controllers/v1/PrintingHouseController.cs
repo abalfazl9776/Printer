@@ -22,28 +22,42 @@ namespace MyApi.Controllers.v1
     {
         private readonly IUserRepository _userRepository;
         private readonly UserManager<User> _userManager;
+        private readonly IRepository<PrintingHouseWallet> _phWalletRepository;
 
         public PrintingHouseController(IRepository<PrintingHouse> repository, IUserRepository userRepository,
-            UserManager<User> userManager, IMapper mapper) 
+            UserManager<User> userManager, IRepository<PrintingHouseWallet> phWalletRepository, IMapper mapper) 
             : base(repository, mapper)
         {
             _userManager = userManager;
             _userRepository = userRepository;
+            _phWalletRepository = phWalletRepository;
+        }
+
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<ApiResult<List<PrintingHouseSelectDto>>> Get(CancellationToken cancellationToken)
+        {
+            var printingHousesList = await Repository.TableNoTracking
+                .ProjectTo<PrintingHouseSelectDto>(Mapper.ConfigurationProvider)
+                .ToListAsync(cancellationToken);
+            
+            return Ok(printingHousesList);
         }
 
         [HttpGet("{id}")]
         public override async Task<ApiResult<PrintingHouseSelectDto>> Get(int id, CancellationToken cancellationToken)
         {
             var dto = await Repository.TableNoTracking.ProjectTo<PrintingHouseSelectDto>(Mapper.ConfigurationProvider)
+                .Include(ph => ph.User)
                 .SingleOrDefaultAsync(p => p.Id.Equals(id), cancellationToken);
 
             if (dto == null)
                 return NotFound();
 
-            var user = await _userRepository.GetByIdAsync(cancellationToken, dto.UserId);
-            var userSelectDto = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>(Mapper.ConfigurationProvider)
-                .SingleOrDefaultAsync(p => p.Id.Equals(user.Id), cancellationToken);
-            dto.UserSelectDto = userSelectDto;
+            //var user = await _userRepository.GetByIdAsync(cancellationToken, dto.UserId);
+            //var userSelectDto = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>(Mapper.ConfigurationProvider)
+            //    .SingleOrDefaultAsync(p => p.Id.Equals(user.Id), cancellationToken);
+            //dto.UserSelectDto = userSelectDto;
 
             return dto;
         }
@@ -60,17 +74,27 @@ namespace MyApi.Controllers.v1
             user = await _userManager.FindByNameAsync(user.UserName);
             var addToRole = await _userManager.AddToRoleAsync(user, PredefinedRoles.PrintingHouse.ToString());
             
-            var userSelectDto = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>(Mapper.ConfigurationProvider)
-                .SingleOrDefaultAsync(p => p.Id.Equals(user.Id), cancellationToken);
+            //var userSelectDto = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>(Mapper.ConfigurationProvider)
+            //    .SingleOrDefaultAsync(p => p.Id.Equals(user.Id), cancellationToken);
+            
+            var printingHouseWallet = new PrintingHouseWallet
+            {
+                Iban = dto.Iban,
+                Cash = 0
+            };
+            await _phWalletRepository.AddAsync(printingHouseWallet, cancellationToken);
 
             var printingHouse = dto.ToEntity(Mapper);
+            printingHouse.PrintingHouseWalletId = printingHouseWallet.Id;
             printingHouse.User = user;
             await Repository.AddAsync(printingHouse, cancellationToken);
 
-            var resultDto = await Repository.TableNoTracking.ProjectTo<PrintingHouseSelectDto>(Mapper.ConfigurationProvider).
-                SingleOrDefaultAsync(p => p.Id.Equals(printingHouse.Id), cancellationToken);
-
-            resultDto.UserSelectDto = userSelectDto;
+            var resultDto = await Repository.TableNoTracking.ProjectTo<PrintingHouseSelectDto>(Mapper.ConfigurationProvider)
+                .Include(ph => ph.User)
+                .Include(ph => ph.PrintingHouseWallet)
+                .SingleOrDefaultAsync(p => p.Id.Equals(printingHouse.Id), cancellationToken);
+            
+            //resultDto.UserSelectDto = userSelectDto;
             return resultDto;
         }
         /*
@@ -83,12 +107,51 @@ namespace MyApi.Controllers.v1
             return Ok(list);
         }
         */
+        /*
+        [HttpPost]
+        [Authorize(Roles = "PrintingHouse")]
+        public async Task<ApiResult<PrintingHouseSelectDto>> AddService(CategoryDto dto, CancellationToken cancellationToken)
+        {
+            dto.UserDto.PhoneNumber = dto.UserDto.UserName;
+            dto.UserDto.Email = "ph"+dto.UserDto.PhoneNumber+"@printer.ir";
+            var user = dto.UserDto.ToEntity(Mapper);
+            var addUser = await _userManager.CreateAsync(user, dto.UserDto.Password);
+
+            user = await _userManager.FindByNameAsync(user.UserName);
+            var addToRole = await _userManager.AddToRoleAsync(user, PredefinedRoles.PrintingHouse.ToString());
+            
+            //var userSelectDto = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>(Mapper.ConfigurationProvider)
+            //    .SingleOrDefaultAsync(p => p.Id.Equals(user.Id), cancellationToken);
+            
+            var printingHouseWallet = new PrintingHouseWallet
+            {
+                Iban = dto.Iban,
+                Cash = 0
+            };
+            await _phWalletRepository.AddAsync(printingHouseWallet, cancellationToken);
+
+            var printingHouse = dto.ToEntity(Mapper);
+            printingHouse.PrintingHouseWalletId = printingHouseWallet.Id;
+            printingHouse.User = user;
+            await Repository.AddAsync(printingHouse, cancellationToken);
+
+            var resultDto = await Repository.TableNoTracking.ProjectTo<PrintingHouseSelectDto>(Mapper.ConfigurationProvider)
+                .Include(ph => ph.User)
+                .Include(ph => ph.PrintingHouseWallet)
+                .SingleOrDefaultAsync(p => p.Id.Equals(printingHouse.Id), cancellationToken);
+            
+            //resultDto.UserSelectDto = userSelectDto;
+            return resultDto;
+        }*/
 
         [HttpPut("{id}")]
+        [Authorize(Roles = "PrintingHouse")]
         public override async Task<ApiResult<PrintingHouseSelectDto>> Update(int id, PrintingHouseDto dto, 
             CancellationToken cancellationToken)
         {
-            var printingHouse = await Repository.GetByIdAsync(cancellationToken, id);
+            var printingHouse = await Repository.TableNoTracking
+                .Include(ph => ph.Wallet)
+                .SingleOrDefaultAsync(ph => ph.Id.Equals(id), cancellationToken);
             var user = await _userRepository.GetByIdAsync(cancellationToken, printingHouse.UserId);
 
             user = dto.UserDto.ToEntity(Mapper, user);
@@ -96,17 +159,23 @@ namespace MyApi.Controllers.v1
             printingHouse = dto.ToEntity(Mapper, printingHouse);
             printingHouse.Id = id;
             printingHouse.UserId = user.Id;
+            printingHouse.Wallet.Iban = dto.Iban;
+            printingHouse.Wallet.Cash = dto.Cash;
+
+            await _phWalletRepository.UpdateAsync(printingHouse.Wallet, cancellationToken);
 
             await _userRepository.UpdateAsync(user, cancellationToken);
             await Repository.UpdateAsync(printingHouse, cancellationToken);
 
-            var userSelectDto = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>(Mapper.ConfigurationProvider)
-                .SingleOrDefaultAsync(p => p.Id.Equals(user.Id), cancellationToken);
+            //var userSelectDto = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>(Mapper.ConfigurationProvider)
+            //    .SingleOrDefaultAsync(p => p.Id.Equals(user.Id), cancellationToken);
 
             var resultDto = await Repository.TableNoTracking.ProjectTo<PrintingHouseSelectDto>(Mapper.ConfigurationProvider)
+                .Include(ph => ph.User)
+                .Include(ph => ph.PrintingHouseWallet)
                 .SingleOrDefaultAsync(p => p.Id.Equals(printingHouse.Id), cancellationToken);
 
-            resultDto.UserSelectDto = userSelectDto;
+            //resultDto.UserSelectDto = userSelectDto;
             return resultDto;
         }
         /*

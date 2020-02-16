@@ -66,7 +66,7 @@ namespace MyApi.Controllers.v1
 
             return Ok(user);
         }
-
+        
         [HttpPost("[action]")]
         [AllowAnonymous]
         public virtual async Task<ActionResult> Token([FromForm]TokenRequest tokenRequest, CancellationToken cancellationToken)
@@ -84,6 +84,30 @@ namespace MyApi.Controllers.v1
 
             var jwt = await _jwtService.GenerateAsync(user);
             return new JsonResult(jwt);
+        }
+
+        [HttpPost("[action]")]
+        [AllowAnonymous]
+        public async Task<ApiResult<TokenSelectRequest>> Login(TokenRequest tokenRequest, CancellationToken cancellationToken)
+        {
+            //if (!tokenRequest.grant_type.Equals("password", StringComparison.OrdinalIgnoreCase))
+            //    throw new Exception("OAuth flow is not password.");
+
+            var user = await _userManager.FindByNameAsync(tokenRequest.username);
+            if (user == null)
+                throw new BadRequestException("نام کاربری یا رمز عبور اشتباه است");
+
+            var isPasswordValid = await _userManager.CheckPasswordAsync(user, tokenRequest.password);
+            if (!isPasswordValid)
+                throw new BadRequestException("نام کاربری یا رمز عبور اشتباه است");
+
+            var jwt = await _jwtService.GenerateAsync(user);
+            var token = new TokenSelectRequest
+            {
+                access_token = jwt.access_token,
+                expires_in = jwt.expires_in
+            };
+            return token;
         }
 
         [HttpPost]

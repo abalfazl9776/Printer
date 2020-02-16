@@ -197,6 +197,8 @@ namespace Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("PrintingHouseWalletId");
+
                     b.HasIndex("UserId");
 
                     b.ToTable("PrintingHouses");
@@ -209,17 +211,13 @@ namespace Data.Migrations
                         .HasColumnType("int")
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<double>("Cash")
+                        .HasColumnType("float");
+
                     b.Property<string>("Iban")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PrintingHouseId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("PrintingHouseId")
-                        .IsUnique()
-                        .HasFilter("[PrintingHouseId] IS NOT NULL");
 
                     b.ToTable("PrintingHouseWallets");
                 });
@@ -462,6 +460,21 @@ namespace Data.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Services");
+                });
+
+            modelBuilder.Entity("Entities.Service.ServiceMapping", b =>
+                {
+                    b.Property<int>("CategoryId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("PrintingHouseId")
+                        .HasColumnType("int");
+
+                    b.HasKey("CategoryId", "PrintingHouseId");
+
+                    b.HasIndex("PrintingHouseId");
+
+                    b.ToTable("ServiceMappings");
                 });
 
             modelBuilder.Entity("Entities.Service.SizeBasePrice", b =>
@@ -772,18 +785,17 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entities.PrintingHouse.PrintingHouse", b =>
                 {
+                    b.HasOne("Entities.PrintingHouse.PrintingHouseWallet", "Wallet")
+                        .WithMany()
+                        .HasForeignKey("PrintingHouseWalletId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("Entities.User.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Entities.PrintingHouse.PrintingHouseWallet", b =>
-                {
-                    b.HasOne("Entities.PrintingHouse.PrintingHouse", "PrintingHouse")
-                        .WithOne("Wallet")
-                        .HasForeignKey("Entities.PrintingHouse.PrintingHouseWallet", "PrintingHouseId");
                 });
 
             modelBuilder.Entity("Entities.Service.Category", b =>
@@ -838,6 +850,15 @@ namespace Data.Migrations
                     b.HasOne("Entities.Service.CategoryBasePrice", "CategoryBasePrice")
                         .WithMany()
                         .HasForeignKey("CategoryBasePriceCategoryId", "CategoryBasePricePrintingHouseId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("Entities.Service.ServiceMapping", b =>
+                {
+                    b.HasOne("Entities.PrintingHouse.PrintingHouse", null)
+                        .WithMany("ServiceMappings")
+                        .HasForeignKey("PrintingHouseId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });

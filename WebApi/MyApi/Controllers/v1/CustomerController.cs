@@ -59,8 +59,8 @@ namespace MyApi.Controllers.v1
             var user = dto.UserDto.ToEntity(Mapper);
             var addUser = await _userManager.CreateAsync(user, dto.UserDto.Password);
 
-            user = await _userManager.FindByNameAsync(user.UserName);
-            var addToRole = await _userManager.AddToRoleAsync(user, PredefinedRoles.NaturalPerson.ToString());
+            user = await _userManager.FindByIdAsync(user.Id.ToString());
+            var addToRole = await _userManager.AddToRoleAsync(user, dto.DiscriminatorRole.ToString());
             
             var userSelectDto = await _userRepository.TableNoTracking.ProjectTo<UserSelectDto>(Mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync(p => p.Id.Equals(user.Id), cancellationToken);
