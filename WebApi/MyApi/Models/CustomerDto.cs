@@ -39,5 +39,7 @@ namespace MyApi.Models
 
         public PredefinedRoles DiscriminatorRole { get; set; }
 
+        public TokenSelectRequest TokenSelectRequest { get; set; }
+
     }
 }

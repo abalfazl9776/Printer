@@ -14,6 +14,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyApi.Models;
+using Services.Services.JWT;
 using WebFramework.Api;
 using WebFramework.Filters;
 
@@ -24,13 +25,15 @@ namespace MyApi.Controllers.v1
     {
         private readonly IUserRepository _userRepository;
         private readonly UserManager<User> _userManager;
+        private readonly IJwtService _jwtService;
 
         public CustomerController(IRepository<Customer> repository, IUserRepository userRepository,
-            UserManager<User> userManager, IMapper mapper) 
+            UserManager<User> userManager, IJwtService jwtService, IMapper mapper) 
             : base(repository, mapper)
         {
             _userManager = userManager;
             _userRepository = userRepository;
+            _jwtService = jwtService;
         }
 
         /*[HttpGet("{id}")]
@@ -74,7 +77,18 @@ namespace MyApi.Controllers.v1
                 .SingleOrDefaultAsync(p => p.Id.Equals(customer.Id), cancellationToken);
 
             //resultDto.UserSelectDto = userSelectDto;
+            //return resultDto;
+
+            var jwt = await _jwtService.GenerateAsync(user);
+            var token = new TokenSelectRequest
+            {
+                access_token = jwt.access_token,
+                expires_in = jwt.expires_in
+            };
+
+            resultDto.TokenSelectRequest = token;
             return resultDto;
+
         }
         /*
         [HttpGet]

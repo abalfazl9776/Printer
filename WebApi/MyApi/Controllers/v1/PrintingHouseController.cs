@@ -13,6 +13,7 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MyApi.Models;
+using Services.Services.JWT;
 using WebFramework.Api;
 
 namespace MyApi.Controllers.v1
@@ -23,14 +24,17 @@ namespace MyApi.Controllers.v1
         private readonly IUserRepository _userRepository;
         private readonly UserManager<User> _userManager;
         private readonly IRepository<PrintingHouseWallet> _phWalletRepository;
+        private readonly IJwtService _jwtService;
 
         public PrintingHouseController(IRepository<PrintingHouse> repository, IUserRepository userRepository,
-            UserManager<User> userManager, IRepository<PrintingHouseWallet> phWalletRepository, IMapper mapper) 
+            UserManager<User> userManager, IRepository<PrintingHouseWallet> phWalletRepository, 
+            IJwtService jwtService, IMapper mapper) 
             : base(repository, mapper)
         {
             _userManager = userManager;
             _userRepository = userRepository;
             _phWalletRepository = phWalletRepository;
+            _jwtService = jwtService;
         }
 
         [HttpGet]
@@ -95,6 +99,16 @@ namespace MyApi.Controllers.v1
                 .SingleOrDefaultAsync(p => p.Id.Equals(printingHouse.Id), cancellationToken);
             
             //resultDto.UserSelectDto = userSelectDto;
+            //return resultDto;
+
+            var jwt = await _jwtService.GenerateAsync(user);
+            var token = new TokenSelectRequest
+            {
+                access_token = jwt.access_token,
+                expires_in = jwt.expires_in
+            };
+
+            resultDto.TokenSelectRequest = token;
             return resultDto;
         }
         /*
