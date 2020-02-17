@@ -39,7 +39,7 @@ namespace MyApi.Controllers.v1
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ApiResult<List<PrintingHouseSelectDto>>> Get(CancellationToken cancellationToken)
+        public override async Task<ApiResult<List<PrintingHouseSelectDto>>> Get(CancellationToken cancellationToken)
         {
             var printingHousesList = await Repository.TableNoTracking
                 .ProjectTo<PrintingHouseSelectDto>(Mapper.ConfigurationProvider)
@@ -51,8 +51,8 @@ namespace MyApi.Controllers.v1
         [HttpGet("{id}")]
         public override async Task<ApiResult<PrintingHouseSelectDto>> Get(int id, CancellationToken cancellationToken)
         {
-            var dto = await Repository.TableNoTracking.ProjectTo<PrintingHouseSelectDto>(Mapper.ConfigurationProvider)
-                .Include(ph => ph.User)
+            var dto = await Repository.TableNoTracking.Include(ph => ph.User)
+                .ProjectTo<PrintingHouseSelectDto>(Mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync(p => p.Id.Equals(id), cancellationToken);
 
             if (dto == null)
@@ -93,9 +93,10 @@ namespace MyApi.Controllers.v1
             printingHouse.User = user;
             await Repository.AddAsync(printingHouse, cancellationToken);
 
-            var resultDto = await Repository.TableNoTracking.ProjectTo<PrintingHouseSelectDto>(Mapper.ConfigurationProvider)
+            var resultDto = await Repository.TableNoTracking
                 .Include(ph => ph.User)
-                .Include(ph => ph.PrintingHouseWallet)
+                .Include(ph => ph.Wallet)
+                .ProjectTo<PrintingHouseSelectDto>(Mapper.ConfigurationProvider)
                 .SingleOrDefaultAsync(p => p.Id.Equals(printingHouse.Id), cancellationToken);
             
             //resultDto.UserSelectDto = userSelectDto;

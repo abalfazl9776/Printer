@@ -87,6 +87,8 @@ namespace MyApi
 
             app.UseSwaggerAndUi();
 
+            app.UseStaticFiles();
+
             app.UseRouting();
 
             app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());

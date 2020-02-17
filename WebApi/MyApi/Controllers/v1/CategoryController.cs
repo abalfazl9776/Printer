@@ -30,12 +30,12 @@ namespace MyApi.Controllers.v1
 
         [HttpGet]
         [AllowAnonymous]
-        public async Task<ApiResult<List<CategorySelectDto>>> Get(CancellationToken cancellationToken)
+        public override async Task<ApiResult<List<CategorySelectDto>>> Get(CancellationToken cancellationToken)
         {
             var categoriesList = await Repository.TableNoTracking
-                .Include(c => c.Description.DescriptionText)
+                .Include(c => c.Description)
                 .Include(c => c.Description.ImageUrls)
-                .Include(c => c.Service.Name)
+                .Include(c => c.Service)
                 .ProjectTo<CategorySelectDto>(Mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

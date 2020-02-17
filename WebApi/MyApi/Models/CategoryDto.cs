@@ -20,17 +20,17 @@ namespace MyApi.Models
     {
         public string Name { get; set; }
 
-        public string ServiceName { get; set; }
+        public Service Service { get; set; }
 
-        public string DescriptionText { get; set; }
+        public Description Description { get; set; }
 
         public ICollection<ImageUrl> ImageUrls { get; set; }
-        
-        public override void CustomMappings(IMappingExpression<Category, CategorySelectDto> mapping)
-        {
-            mapping.ForMember(
-                dest => dest.ServiceName,
-                config => config.MapFrom(src => src.Service.Name));
-        }
+
+        //public override void CustomMappings(IMappingExpression<Category, CategorySelectDto> mapping)
+        //{
+        //    mapping.ForMember(
+        //        dest => dest.ServiceName,
+        //        config => config.MapFrom(src => src.Service.Name));
+        //}
     }
 }
