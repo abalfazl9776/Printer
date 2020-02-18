@@ -36,6 +36,7 @@ namespace MyApi.Controllers.v1
                 .Include(c => c.Description)
                 .Include(c => c.Description.ImageUrls)
                 .Include(c => c.Service)
+                .Include(c => c.CategoryBasePrice)
                 .ProjectTo<CategorySelectDto>(Mapper.ConfigurationProvider)
                 .ToListAsync(cancellationToken);
 

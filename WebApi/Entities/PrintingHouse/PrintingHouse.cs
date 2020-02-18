@@ -9,6 +9,8 @@ namespace Entities.PrintingHouse
     {
         public string Name { get; set; }
 
+        public double Star { get; set; }
+
         public string DocumentsUrl { get; set; }
 
         public int PrintingHouseWalletId { get; set; }

@@ -71,7 +71,6 @@ namespace MyApi.Controllers.v1
         public override async Task<ApiResult<PrintingHouseSelectDto>> Create(PrintingHouseDto dto, CancellationToken cancellationToken)
         {
             dto.UserDto.PhoneNumber = dto.UserDto.UserName;
-            dto.UserDto.Email = "ph"+dto.UserDto.PhoneNumber+"@printer.ir";
             var user = dto.UserDto.ToEntity(Mapper);
             var addUser = await _userManager.CreateAsync(user, dto.UserDto.Password);
 
@@ -91,6 +90,7 @@ namespace MyApi.Controllers.v1
             var printingHouse = dto.ToEntity(Mapper);
             printingHouse.PrintingHouseWalletId = printingHouseWallet.Id;
             printingHouse.User = user;
+            printingHouse.Wallet = printingHouseWallet;
             await Repository.AddAsync(printingHouse, cancellationToken);
 
             var resultDto = await Repository.TableNoTracking

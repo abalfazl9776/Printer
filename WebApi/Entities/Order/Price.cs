@@ -25,11 +25,13 @@ namespace Entities.Service
 
         public int CategoryId { get; set; }
         public int PrintingHouseId { get; set; }
+
+        public PrintingHouse.PrintingHouse PrintingHouse { get; set; }
     }
 
     public class QuantityBasePrice : BaseEntity
     {
-        public int Quantity { get; set; }
+        public int QuantityId { get; set; }
 
         public double QuantityPer { get; set; }
 
@@ -38,7 +40,7 @@ namespace Entities.Service
 
     public class ColorBasePrice : BaseEntity
     {
-        public string Color { get; set; }
+        public int ColorId { get; set; }
 
         public double ColorPer { get; set; }
 
@@ -47,7 +49,7 @@ namespace Entities.Service
     
     public class SizeBasePrice : BaseEntity
     {
-        public string Size { get; set; }
+        public int SizeId { get; set; }
 
         public double SizePer { get; set; }
 

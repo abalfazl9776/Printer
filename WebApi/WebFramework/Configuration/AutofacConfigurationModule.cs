@@ -30,17 +30,17 @@ namespace WebFramework.Configuration
             var dataAssembly = typeof(ApplicationDbContext).Assembly;
             var servicesAssembly = typeof(JwtService).Assembly;
 
-            containerBuilder.RegisterAssemblyTypes(commonAssembly, entitiesAssembly, dataAssembly, servicesAssembly)
+            containerBuilder.RegisterAssemblyTypes(commonAssembly, entitiesAssembly, dataAssembly, servicesAssembly, ThisAssembly)
                 .AssignableTo<IScopedDependency>()
                 .AsImplementedInterfaces()
                 .InstancePerLifetimeScope();
 
-            containerBuilder.RegisterAssemblyTypes(commonAssembly, entitiesAssembly, dataAssembly, servicesAssembly)
+            containerBuilder.RegisterAssemblyTypes(commonAssembly, entitiesAssembly, dataAssembly, servicesAssembly, ThisAssembly)
                 .AssignableTo<ITransientDependency>()
                 .AsImplementedInterfaces()
                 .InstancePerDependency();
 
-            containerBuilder.RegisterAssemblyTypes(commonAssembly, entitiesAssembly, dataAssembly, servicesAssembly)
+            containerBuilder.RegisterAssemblyTypes(commonAssembly, entitiesAssembly, dataAssembly, servicesAssembly, ThisAssembly)
                 .AssignableTo<ISingletonDependency>()
                 .AsImplementedInterfaces()
                 .SingleInstance();

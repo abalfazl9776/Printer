@@ -38,5 +38,7 @@ namespace MyApi.Models
         public string DocumentsUrl { get; set; }
 
         public TokenSelectRequest TokenSelectRequest { get; set; }
+
+        public double Star { get; set; }
     }
 }

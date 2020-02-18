@@ -9,17 +9,21 @@ namespace Entities.Service
 {
     public class ServiceMapping : IEntity
     {
+        public PrintingHouse.PrintingHouse PrintingHouse { get; set; }
+
+        public Category Category { get; set; }
+
         public int PrintingHouseId { get; set; }
 
         public int CategoryId { get; set; }
     }
-    
+
 
     public class ServiceMappingConfiguration : IEntityTypeConfiguration<ServiceMapping>
     {
         public void Configure(EntityTypeBuilder<ServiceMapping> builder)
         {
-            builder.HasKey(t => new {t.CategoryId, t.PrintingHouseId});
+            builder.HasKey(t => new { t.CategoryId, t.PrintingHouseId });
         }
     }
 }

@@ -24,13 +24,13 @@ namespace MyApi.Models
 
         public Description Description { get; set; }
 
-        public ICollection<ImageUrl> ImageUrls { get; set; }
+        public ICollection<CategoryBasePrice> CategoryPrice { get; set; }
 
-        //public override void CustomMappings(IMappingExpression<Category, CategorySelectDto> mapping)
-        //{
-        //    mapping.ForMember(
-        //        dest => dest.ServiceName,
-        //        config => config.MapFrom(src => src.Service.Name));
-        //}
+        public override void CustomMappings(IMappingExpression<Category, CategorySelectDto> mapping)
+        {
+            mapping.ForMember(
+                dest => dest.CategoryPrice,
+                config => config.MapFrom(src => src.CategoryBasePrice));
+        }
     }
 }
