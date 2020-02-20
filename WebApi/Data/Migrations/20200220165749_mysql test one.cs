@@ -1,9 +1,10 @@
 ﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Data.Migrations
 {
-    public partial class testsixtyfour : Migration
+    public partial class mysqltestone : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -12,7 +13,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 50, nullable: false),
                     NormalizedName = table.Column<string>(maxLength: 256, nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
@@ -28,7 +29,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     UserName = table.Column<string>(maxLength: 256, nullable: true),
                     NormalizedUserName = table.Column<string>(maxLength: 256, nullable: true),
                     Email = table.Column<string>(maxLength: 256, nullable: true),
@@ -62,7 +63,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     SizeId = table.Column<int>(nullable: false),
                     ColorId = table.Column<int>(nullable: false),
                     QuantityId = table.Column<int>(nullable: false),
@@ -78,7 +79,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     ColorId = table.Column<int>(nullable: false),
                     ColorPer = table.Column<double>(nullable: false),
                     PrintingHouseId = table.Column<int>(nullable: false)
@@ -93,7 +94,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     DefaultColor = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -106,7 +107,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     IsPayed = table.Column<bool>(nullable: false),
                     PaymentDate = table.Column<DateTime>(nullable: false)
                 },
@@ -120,7 +121,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Iban = table.Column<string>(nullable: true),
                     Cash = table.Column<double>(nullable: false)
                 },
@@ -134,7 +135,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     DefaultQuantity = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
@@ -147,7 +148,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     QuantityId = table.Column<int>(nullable: false),
                     QuantityPer = table.Column<double>(nullable: false),
                     PrintingHouseId = table.Column<int>(nullable: false)
@@ -162,7 +163,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     RoundedCorner = table.Column<bool>(nullable: false),
                     RoundedCornerPer = table.Column<double>(nullable: false),
                     PrintingHouseId = table.Column<int>(nullable: false)
@@ -177,7 +178,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 100, nullable: false)
                 },
                 constraints: table =>
@@ -190,7 +191,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     SizeId = table.Column<int>(nullable: false),
                     SizePer = table.Column<double>(nullable: false),
                     PrintingHouseId = table.Column<int>(nullable: false)
@@ -205,7 +206,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     DefaultSize = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -218,7 +219,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     RoleId = table.Column<int>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -239,7 +240,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Country = table.Column<string>(nullable: true),
                     State = table.Column<string>(nullable: true),
                     City = table.Column<string>(nullable: true),
@@ -270,7 +271,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<int>(nullable: false),
                     ClaimType = table.Column<string>(nullable: true),
                     ClaimValue = table.Column<string>(nullable: true)
@@ -355,7 +356,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<int>(nullable: false),
                     AcName = table.Column<string>(nullable: true),
                     AcLicenseNumber = table.Column<long>(nullable: false),
@@ -377,7 +378,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     UserId = table.Column<int>(nullable: false),
                     Name = table.Column<string>(nullable: true),
                     Star = table.Column<double>(nullable: false),
@@ -406,7 +407,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 100, nullable: false),
                     ServiceId = table.Column<int>(nullable: false)
                 },
@@ -426,7 +427,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     DateTime = table.Column<DateTime>(nullable: false),
                     TotalPrice = table.Column<double>(nullable: false),
                     CustomerId = table.Column<int>(nullable: false),
@@ -473,7 +474,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     DescriptionText = table.Column<string>(maxLength: 10000, nullable: false),
                     CategoryId = table.Column<int>(nullable: true)
                 },
@@ -517,7 +518,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     CategoryId = table.Column<int>(nullable: false),
                     PrintingHouseId = table.Column<int>(nullable: false),
                     AttributeId = table.Column<int>(nullable: false),
@@ -557,7 +558,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     QuantityBasePriceId = table.Column<int>(nullable: false),
                     ColorBasePriceId = table.Column<int>(nullable: false),
                     SizeBasePriceId = table.Column<int>(nullable: false),
@@ -602,7 +603,7 @@ namespace Data.Migrations
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Prices_CategoryBasePrices_CategoryBasePriceCategoryId_CategoryBasePricePrintingHouseId",
+                        name: "FK_Prices_CategoryBasePrices_CategoryBasePriceCategoryId_Catego~",
                         columns: x => new { x.CategoryBasePriceCategoryId, x.CategoryBasePricePrintingHouseId },
                         principalTable: "CategoryBasePrices",
                         principalColumns: new[] { "CategoryId", "PrintingHouseId" },
@@ -614,7 +615,7 @@ namespace Data.Migrations
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
                     Url = table.Column<string>(maxLength: 150, nullable: false),
                     DescriptionId = table.Column<int>(nullable: true)
                 },
@@ -643,8 +644,7 @@ namespace Data.Migrations
                 name: "RoleNameIndex",
                 table: "AspNetRoles",
                 column: "NormalizedName",
-                unique: true,
-                filter: "[NormalizedName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_AspNetUserClaims_UserId",
@@ -670,8 +670,7 @@ namespace Data.Migrations
                 name: "UserNameIndex",
                 table: "AspNetUsers",
                 column: "NormalizedUserName",
-                unique: true,
-                filter: "[NormalizedUserName] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_ServiceId",
@@ -687,8 +686,7 @@ namespace Data.Migrations
                 name: "IX_Descriptions_CategoryId",
                 table: "Descriptions",
                 column: "CategoryId",
-                unique: true,
-                filter: "[CategoryId] IS NOT NULL");
+                unique: true);
 
             migrationBuilder.CreateIndex(
                 name: "IX_ImageUrls_DescriptionId",
@@ -751,7 +749,7 @@ namespace Data.Migrations
                 column: "SizeBasePriceId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Prices_CategoryBasePriceCategoryId_CategoryBasePricePrintingHouseId",
+                name: "IX_Prices_CategoryBasePriceCategoryId_CategoryBasePricePrinting~",
                 table: "Prices",
                 columns: new[] { "CategoryBasePriceCategoryId", "CategoryBasePricePrintingHouseId" });
 
