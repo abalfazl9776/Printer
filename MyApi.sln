@@ -15,11 +15,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Entities", "WebApi\Entities
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebFramework", "WebApi\WebFramework\WebFramework.csproj", "{451717D3-3252-40E9-821D-1589C7A0FB9D}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IDP", "IDP", "{5F3F397B-3AB6-4897-ABA1-36E5C8D62559}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebApi", "WebApi", "{ED696C4E-5A22-4FCA-BBCF-24CD03E5109F}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AuthorizationServer", "IDP\AuthorizationServer\AuthorizationServer.csproj", "{A2408DBF-6911-4AB5-8000-8EB13C27F634}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

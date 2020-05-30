@@ -17,8 +17,8 @@ using Microsoft.Extensions.Configuration;
 using Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
-using Pomelo.EntityFrameworkCore.MySql.Storage;
+//using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+//using Pomelo.EntityFrameworkCore.MySql.Storage;
 
 namespace WebFramework.Configuration
 {
@@ -27,22 +27,22 @@ namespace WebFramework.Configuration
         public static void AddDbContext(this IServiceCollection services, IConfiguration configuration)
         {
             //SQL Server
-            //services.AddDbContext<ApplicationDbContext>(options =>
-            //{
-            //    options.UseSqlServer(configuration.GetConnectionString("SqlServer"));
-            //});
+            services.AddDbContext<ApplicationDbContext>(options =>
+            {
+                options.UseSqlServer(configuration.GetConnectionString("SqlServer"));
+            });
 
             //MySql
-            services.AddDbContextPool<ApplicationDbContext>(options =>
-            {
-                // replace with your connection string
-                options.UseMySql(configuration.GetConnectionString("MySql"),
-                    mySqlOptions =>
-                    {
-                        mySqlOptions.ServerVersion(new ServerVersion(new Version(8, 0, 11), ServerType.MySql));
-                    });
+            //services.AddDbContextPool<ApplicationDbContext>(options =>
+            //{
+            //    // replace with your connection string
+            //    options.UseMySql(configuration.GetConnectionString("MySql"),
+            //        mySqlOptions =>
+            //        {
+            //            mySqlOptions.ServerVersion(new ServerVersion(new Version(8, 0, 11), ServerType.MySql));
+            //        });
 
-            });
+            //});
         }
 
         public static void AddJwtAuthentication(this IServiceCollection services, JwtSettings jwtSettings)

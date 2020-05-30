@@ -87,15 +87,19 @@ namespace MyApi
 
             app.UseSwaggerAndUi();
 
+			// must be before UseRouting
             app.UseStaticFiles();
 
             app.UseRouting();
 
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-
+			// must be after UseRouting
             app.UseAuthentication();
 
+			// must be after UseAuthentication
             app.UseAuthorization();
+
+			// it's better UseCors placed before UseEndpoints and after Routing or Authorization
+            app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
 
             app.UseEndpoints(endpoints =>
             {
